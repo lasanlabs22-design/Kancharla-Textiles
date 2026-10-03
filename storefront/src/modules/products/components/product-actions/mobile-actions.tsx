@@ -108,7 +108,8 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               className="kt-btn h-12 shrink-0 px-5 disabled:bg-teak-muted disabled:cursor-not-allowed"
               data-testid="mobile-cart-button"
             >
-              {isAdding ? "Adding…" : needsSize ? "Select size" : !inStock ? "Out of stock" : "Add to bag"}
+              {/* Only say "Out of stock" once the variant is known; before that the product is still loading */}
+              {isAdding ? "Adding…" : needsSize ? "Select size" : variant && !inStock ? "Out of stock" : "Add to bag"}
             </button>
           </div>
         </Transition>

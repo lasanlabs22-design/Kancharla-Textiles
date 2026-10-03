@@ -24,7 +24,7 @@ export default function MobileSort({ sortBy }: { sortBy: SortOptions }) {
   }
 
   return (
-    <label className="small:hidden relative flex items-center gap-2 border border-teak-line bg-white pl-3 pr-8 h-10 text-[12px] uppercase tracking-[0.14em] text-teak">
+    <label className="small:hidden relative flex shrink-0 items-center gap-2 border border-teak-line bg-white pl-3 pr-8 h-10 text-[11px] uppercase tracking-[0.14em] text-teak">
       <span className="text-teak-muted">Sort</span>
       <select
         value={sortBy}

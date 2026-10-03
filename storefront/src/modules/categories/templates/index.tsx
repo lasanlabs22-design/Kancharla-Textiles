@@ -58,8 +58,8 @@ export default function CategoryTemplate({
               </span>
             ))}
         </nav>
-        <div className="flex items-end justify-between gap-3">
-          <h1 className="font-display text-[32px] leading-none small:text-4xl text-teak" data-testid="category-page-title">
+        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-4">
+          <h1 className="font-display text-[clamp(26px,8vw,32px)] leading-none small:text-4xl text-teak" data-testid="category-page-title">
             {category.name}
           </h1>
           <MobileSort sortBy={sort} />

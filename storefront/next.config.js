@@ -13,6 +13,11 @@ const S3_PATHNAME = process.env.MEDUSA_CLOUD_S3_PATHNAME
  */
 const nextConfig = {
   reactStrictMode: true,
+  // Dev only: let phones on the same Wi-Fi load the dev server via the PC's LAN IP.
+  // Wildcards don't match bare IPs, so list the PC's address (update if the router assigns a new one).
+  allowedDevOrigins: ["192.168.50.41", "localhost"],
+  // Hide the floating dev "N" badge; it covers the sticky add-to-bag bar when testing on phones.
+  devIndicators: false,
   logging: {
     fetches: {
       fullUrl: true,
