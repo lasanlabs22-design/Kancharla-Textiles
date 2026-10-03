@@ -1,10 +1,9 @@
 import { Metadata } from "next"
 
+import AccountPageHeader from "@modules/account/components/account-page-header"
 import OrderOverview from "@modules/account/components/order-overview"
 import { notFound } from "next/navigation"
 import { listOrders } from "@lib/data/orders"
-import Divider from "@modules/common/components/divider"
-import TransferRequestForm from "@modules/account/components/transfer-request-form"
 
 export const metadata: Metadata = {
   title: "Orders",
@@ -20,18 +19,14 @@ export default async function Orders() {
 
   return (
     <div className="w-full" data-testid="orders-page-wrapper">
-      <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Orders</h1>
-        <p className="text-base-regular">
-          View your previous orders and their status. You can also create
-          returns or exchanges for your orders if needed.
-        </p>
-      </div>
-      <div>
-        <OrderOverview orders={orders} />
-        <Divider className="my-16" />
-        <TransferRequestForm />
-      </div>
+      {/* No returns at this store; cancellation (with owner approval) comes with the order-management step. */}
+      <AccountPageHeader
+        eyebrow="Orders"
+        title="My orders"
+        description="Track your orders and see their status."
+      />
+      {/* The starter's "transfer order" form is removed: every order is placed after OTP sign-in. */}
+      <OrderOverview orders={orders} />
     </div>
   )
 }
