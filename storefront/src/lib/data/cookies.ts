@@ -1,5 +1,6 @@
 import "server-only"
 import { cookies as nextCookies } from "next/headers"
+import { parseWishlist, serializeWishlist, WISHLIST_COOKIE } from "@lib/util/wishlist"
 
 export const getAuthHeaders = async (): Promise<
   { authorization: string } | {}
@@ -64,6 +65,28 @@ export const removeAuthToken = async () => {
   cookies.set("_medusa_jwt", "", {
     maxAge: -1,
   })
+}
+
+// Wishlist cookie is NOT httpOnly: the browser updates it directly when a heart is tapped.
+export const getWishlistIds = async () => {
+  const cookies = await nextCookies()
+  return parseWishlist(cookies.get(WISHLIST_COOKIE)?.value)
+}
+
+export const setWishlistIds = async (ids: string[]) => {
+  const cookies = await nextCookies()
+  cookies.set(WISHLIST_COOKIE, serializeWishlist(ids), {
+    maxAge: 60 * 60 * 24 * 365,
+    httpOnly: false,
+    sameSite: "lax",
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
+  })
+}
+
+export const removeWishlistIds = async () => {
+  const cookies = await nextCookies()
+  cookies.set(WISHLIST_COOKIE, "", { maxAge: -1, path: "/" })
 }
 
 // Verified phone number held between "OTP confirmed" and "new shopper entered their name".

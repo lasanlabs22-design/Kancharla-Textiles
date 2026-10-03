@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/account/orders", label: "My orders", icon: "box", testId: "orders-link" },
   { href: "/account/profile", label: "Profile", icon: "user", testId: "profile-link" },
   { href: "/account/addresses", label: "Addresses", icon: "pin", testId: "addresses-link" },
+  { href: "/wishlist", label: "Wishlist", icon: "heart", testId: "wishlist-link" },
 ] as const
 
 const AccountNav = ({ customer }: { customer: HttpTypes.StoreCustomer | null }) => {
@@ -136,8 +137,11 @@ function Chevron() {
   )
 }
 
-function Icon({ name }: { name: "home" | "box" | "user" | "pin" | "logout" }) {
+function Icon({ name }: { name: "home" | "box" | "user" | "pin" | "heart" | "logout" }) {
   const paths = {
+    heart: (
+      <path d="M12 20s-7-4.4-9-9.2C1.8 7.4 4 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.2 0 5.4 2.9 4.2 6.3C19 15.6 12 20 12 20Z" />
+    ),
     home: <path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z" />,
     box: (
       <>
