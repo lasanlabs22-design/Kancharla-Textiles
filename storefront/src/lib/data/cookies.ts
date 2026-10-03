@@ -66,6 +66,27 @@ export const removeAuthToken = async () => {
   })
 }
 
+// Verified phone number held between "OTP confirmed" and "new shopper entered their name".
+export const setPendingPhone = async (phone: string) => {
+  const cookies = await nextCookies()
+  cookies.set("_kt_pending_phone", phone, {
+    maxAge: 60 * 15,
+    httpOnly: true,
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+  })
+}
+
+export const getPendingPhone = async () => {
+  const cookies = await nextCookies()
+  return cookies.get("_kt_pending_phone")?.value
+}
+
+export const removePendingPhone = async () => {
+  const cookies = await nextCookies()
+  cookies.set("_kt_pending_phone", "", { maxAge: -1 })
+}
+
 export const getCartId = async () => {
   const cookies = await nextCookies()
   return cookies.get("_medusa_cart_id")?.value

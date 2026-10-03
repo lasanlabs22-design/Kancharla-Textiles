@@ -26,7 +26,8 @@
     "@medusajs/admin-sdk": "2.18.0",
     "@medusajs/cli": "2.18.0",
     "@medusajs/framework": "2.18.0",
-    "@medusajs/medusa": "2.18.0"
+    "@medusajs/medusa": "2.18.0",
+    "jose": "^4.15.9"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.18.0",
