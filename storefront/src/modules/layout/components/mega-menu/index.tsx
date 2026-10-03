@@ -37,7 +37,7 @@ export default function MegaMenu({ items }: { items: MenuItem[] }) {
                   <div className="flex gap-14">
                     {chunk(flatten(item), COLUMN_SIZE).map((col, i) => (
                       <ul key={i} className="flex flex-col gap-y-3 min-w-[170px]">
-                        <li className="mb-2 h-[22px] font-display text-xl italic text-zari" aria-hidden={i > 0}>
+                        <li className="mb-2 h-[22px] font-display text-xl italic text-zari-ink" aria-hidden={i > 0}>
                           {i === 0 ? item.name : ""}
                         </li>
                         {col.map((child) => (

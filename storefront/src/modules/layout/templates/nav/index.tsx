@@ -33,9 +33,17 @@ export default async function Nav() {
           </div>
 
           <LocalizedClientLink href="/" className="flex flex-col items-center" data-testid="nav-store-link">
-            <GopuramMark />
-            <span className="font-display text-[21px] small:text-[32px] leading-none tracking-[0.16em] pl-[0.16em] small:tracking-[0.24em] small:pl-[0.24em] text-teak">KANCHARLA</span>
-            <span className="text-[7.5px] small:text-[8.5px] tracking-[0.26em] pl-[0.26em] small:tracking-[0.42em] small:pl-[0.42em] text-zari mt-1.5 whitespace-nowrap">TEXTILES · MANGALAGIRI</span>
+            <span className="hidden small:block">
+              <GopuramMark />
+            </span>
+            {/* Brand name "Kancharla Textiles": two equal lines on phones (fits 320px between the icons), one line on desktop */}
+            <span className="font-display text-center text-[clamp(16px,5vw,20px)] small:text-[28px] leading-[1.05] tracking-[0.16em] pl-[0.16em] small:tracking-[0.2em] small:pl-[0.2em] text-teak whitespace-nowrap">
+              KANCHARLA
+              <br className="small:hidden" />
+              <span className="hidden small:inline"> </span>
+              TEXTILES
+            </span>
+            <span className="text-[clamp(6.5px,1.95vw,8px)] small:text-[8.5px] tracking-[0.36em] pl-[0.36em] small:tracking-[0.5em] small:pl-[0.5em] font-medium text-zari-ink mt-1 small:mt-1.5 whitespace-nowrap">MANGALAGIRI</span>
           </LocalizedClientLink>
 
           <div className="flex items-center justify-end gap-x-3 xsmall:gap-x-5">

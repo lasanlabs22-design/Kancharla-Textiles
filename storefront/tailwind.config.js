@@ -25,7 +25,8 @@ module.exports = {
         // lime = ivory ground, kumkum = deep temple red (sparingly), zari = soft gold, teak = ink
         lime: { DEFAULT: "#FBF8F3", deep: "#F3EDE3" },
         kumkum: { DEFAULT: "#8C2A22", dark: "#6E1F19", soft: "#F5E9E4" },
-        zari: { DEFAULT: "#B8955A", light: "#D9C29A" },
+        // zari.ink = deeper bronze-gold for small TEXT on ivory (≈5.6:1 contrast); DEFAULT stays for lines/borders/icons
+        zari: { DEFAULT: "#B8955A", light: "#D9C29A", ink: "#7D5F27" },
         haldi: { DEFAULT: "#B8955A", soft: "#F6EFE2", deep: "#8C2A22" },
         indigo: { DEFAULT: "#3B4A63" },
         teak: { DEFAULT: "#1F1A17", muted: "#776C63", line: "#E8E1D6" },

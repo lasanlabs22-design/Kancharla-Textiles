@@ -64,7 +64,7 @@ export default async function ProductPreview({
       </div>
       <div className="pt-3 small:pt-4 text-center">
         {fabric && (
-          <p className="text-[9px] small:text-[10px] uppercase tracking-[0.16em] small:tracking-[0.24em] text-zari truncate px-1">{fabric}</p>
+          <p className="text-[9px] small:text-[10px] font-medium uppercase tracking-[0.16em] small:tracking-[0.24em] text-zari-ink truncate px-1">{fabric}</p>
         )}
         <h3
           className="mt-1 small:mt-1.5 font-display text-[15px] small:text-[18px] leading-snug text-teak line-clamp-2 small:line-clamp-1 min-h-[2.5em] small:min-h-0 px-1 small:px-2"

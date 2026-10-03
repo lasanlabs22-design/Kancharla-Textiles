@@ -95,7 +95,7 @@
   }
 
   .kt-eyebrow {
-    @apply text-[11px] font-normal uppercase tracking-[0.28em] text-zari;
+    @apply text-[11px] font-medium uppercase tracking-[0.28em] text-zari-ink;
   }
 
   .kt-btn {
