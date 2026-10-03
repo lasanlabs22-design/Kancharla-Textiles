@@ -11,12 +11,16 @@ import {
   getCacheTag,
   getCartId,
   getPendingPhone,
+  getWishlistIds,
   removeAuthToken,
   removeCartId,
   removePendingPhone,
+  removeWishlistIds,
   setAuthToken,
   setPendingPhone,
+  setWishlistIds,
 } from "./cookies"
+import { WISHLIST_MAX } from "@lib/util/wishlist"
 
 /** Reads a JWT's payload without verifying it (the backend already verified it in the same request). */
 const jwtPayload = (token: string): Record<string, any> => {
@@ -28,9 +32,42 @@ const jwtPayload = (token: string): Record<string, any> => {
 }
 
 const afterSignIn = async () => {
+  await mergeWishlistOnSignIn().catch(() => {})
   const customerCacheTag = await getCacheTag("customers")
   revalidateTag(customerCacheTag)
   await transferCart().catch(() => {})
+}
+
+/** Hearts saved while signed out + the account's saved wishlist -> one list, stored in both places. */
+async function mergeWishlistOnSignIn() {
+  const headers = await getAuthHeaders()
+  const { customer } = await sdk.store.customer.retrieve({ fields: "id,metadata" }, headers)
+  const saved = Array.isArray(customer.metadata?.wishlist) ? (customer.metadata!.wishlist as string[]) : []
+  const merged = Array.from(new Set([...(await getWishlistIds()), ...saved])).slice(0, WISHLIST_MAX)
+  if (merged.length !== saved.length) {
+    await sdk.store.customer.update({ metadata: { ...(customer.metadata ?? {}), wishlist: merged } }, {}, headers)
+  }
+  await setWishlistIds(merged)
+}
+
+/**
+ * Called (fire-and-forget) when a signed-in shopper taps a heart, so the wishlist follows them to other
+ * devices. Deliberately no revalidateTag: the browser already shows the change, and revalidating would
+ * re-render the whole page on every tap.
+ */
+export async function saveWishlist(ids: string[]) {
+  const headers = await getAuthHeaders()
+  if (!("authorization" in headers)) return
+  try {
+    const { customer } = await sdk.store.customer.retrieve({ fields: "id,metadata" }, headers)
+    await sdk.store.customer.update(
+      { metadata: { ...(customer.metadata ?? {}), wishlist: ids.slice(0, WISHLIST_MAX) } },
+      {},
+      headers
+    )
+  } catch {
+    // Not fatal: the browser cookie still holds the wishlist.
+  }
 }
 
 /**
@@ -214,6 +251,8 @@ export async function signout(countryCode: string) {
   await sdk.auth.logout()
 
   await removeAuthToken()
+  // Shared phones: the next person shouldn't see this shopper's saved items.
+  await removeWishlistIds()
 
   const customerCacheTag = await getCacheTag("customers")
   revalidateTag(customerCacheTag)

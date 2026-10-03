@@ -11,6 +11,7 @@ import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
+import HeartButton from "@modules/wishlist/heart-button"
 import { useRouter } from "next/navigation"
 
 type ProductActionsProps = {
@@ -182,12 +183,7 @@ export default function ProductActions({
               ? "Out of stock"
               : "Add to bag"}
           </button>
-          <button type="button" className="kt-btn-outline h-14" aria-label="Add to wishlist">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <path d="M12 20s-7-4.4-9-9.2C1.8 7.4 4 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.2 0 5.4 2.9 4.2 6.3C19 15.6 12 20 12 20Z" />
-            </svg>
-            <span className="hidden xsmall:inline">Wishlist</span>
-          </button>
+          <HeartButton productId={product.id} productTitle={product.title} variant="pdp" />
         </div>
         <MobileActions
           product={product}

@@ -2,6 +2,7 @@ import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Image from "next/image"
+import HeartButton from "@modules/wishlist/heart-button"
 import PreviewPrice from "./price"
 
 /** Myntra-style product card: second image on hover, fabric line, sale price with MRP and % off. */
@@ -26,7 +27,9 @@ export default async function ProductPreview({
   const fewLeft = !soldOut && stock > 0 && stock <= 5
 
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group block" data-testid="product-wrapper">
+    // The heart sits beside (not inside) the link so tapping it never opens the product.
+    <div className="group relative">
+    <LocalizedClientLink href={`/products/${product.handle}`} className="block" data-testid="product-wrapper">
       <div className="relative aspect-[4/5] overflow-hidden bg-lime-deep">
         {front && (
           <Image
@@ -56,11 +59,6 @@ export default async function ProductPreview({
             Only {stock} left
           </span>
         )}
-        <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-lime/90 text-teak opacity-0 transition-opacity group-hover:opacity-100" aria-hidden>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-            <path d="M12 20s-7-4.4-9-9.2C1.8 7.4 4 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.2 0 5.4 2.9 4.2 6.3C19 15.6 12 20 12 20Z" />
-          </svg>
-        </span>
       </div>
       <div className="pt-3 small:pt-4 text-center">
         {fabric && (
@@ -77,5 +75,9 @@ export default async function ProductPreview({
         </div>
       </div>
     </LocalizedClientLink>
+    <div className="absolute right-2 top-2 small:right-3 small:top-3">
+      <HeartButton productId={product.id} productTitle={product.title} />
+    </div>
+    </div>
   )
 }

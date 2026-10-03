@@ -6,6 +6,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import MegaMenu from "@modules/layout/components/mega-menu"
 import MobileMenu from "@modules/layout/components/mobile-menu"
+import WishlistNavLink from "@modules/wishlist/nav-link"
 
 export default async function Nav() {
   const categories = await listCategories().catch(() => [])
@@ -50,9 +51,7 @@ export default async function Nav() {
             <NavIcon href="/account" label="Account" testId="nav-account-link">
               <ProfileIcon />
             </NavIcon>
-            <NavIcon href="/account" label="Wishlist" className="hidden xsmall:flex">
-              <HeartIcon />
-            </NavIcon>
+            <WishlistNavLink className="hidden xsmall:flex" />
             <Suspense fallback={<NavIcon href="/cart" label="Bag"><BagIcon /></NavIcon>}>
               <CartButton />
             </Suspense>

@@ -1,6 +1,8 @@
 import { Metadata } from "next"
 
 import { retrieveCart } from "@lib/data/cart"
+import { getWishlistIds } from "@lib/data/cookies"
+import { WishlistProvider } from "@modules/wishlist/context"
 import { retrieveCustomer } from "@lib/data/customer"
 import { getBaseURL } from "@lib/util/env"
 import CartMismatchBanner from "@modules/layout/components/cart-mismatch-banner"
@@ -16,8 +18,10 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
   const customer = await retrieveCustomer()
   const cart = await retrieveCart()
 
+  const wishlistIds = await getWishlistIds()
+
   return (
-    <>
+    <WishlistProvider initialIds={wishlistIds} signedIn={!!customer}>
       <Nav />
       {customer && cart && (
         <CartMismatchBanner customer={customer} cart={cart} />
@@ -27,6 +31,6 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
       {props.children}
       <Footer />
       <FloatingContact />
-    </>
+    </WishlistProvider>
   )
 }
