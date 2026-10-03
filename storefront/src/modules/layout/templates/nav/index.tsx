@@ -13,7 +13,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50">
-      <div className="bg-lime-deep text-teak-muted text-[10px] small:text-[11px] uppercase tracking-[0.16em] small:tracking-[0.24em] text-center py-2 px-4 truncate">
+      <div className="bg-lime-deep text-teak-muted text-[clamp(9px,2.6vw,10px)] small:text-[11px] uppercase tracking-[0.12em] xsmall:tracking-[0.16em] small:tracking-[0.24em] text-center py-2 px-4 truncate">
         <span className="small:hidden">Handwoven in Mangalagiri · Cash on Delivery</span>
         <span className="hidden small:inline">Handwoven in Mangalagiri · Delivered across India · Cash on Delivery available</span>
       </div>
@@ -38,7 +38,7 @@ export default async function Nav() {
             <span className="text-[7.5px] small:text-[8.5px] tracking-[0.26em] pl-[0.26em] small:tracking-[0.42em] small:pl-[0.42em] text-zari mt-1.5 whitespace-nowrap">TEXTILES · MANGALAGIRI</span>
           </LocalizedClientLink>
 
-          <div className="flex items-center justify-end gap-x-5">
+          <div className="flex items-center justify-end gap-x-3 xsmall:gap-x-5">
             <NavIcon href="/account" label="Account" testId="nav-account-link">
               <ProfileIcon />
             </NavIcon>

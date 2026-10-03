@@ -2,6 +2,29 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer base {
+  html {
+    /* iOS: keep font sizes stable when rotating to landscape */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    /* Guard against any stray element causing sideways scroll on phones (clip keeps sticky header working) */
+    overflow-x: clip;
+  }
+
+  /* iOS Safari zooms the page when a focused field's text is under 16px, so phones/tablets get 16px fields */
+  @media (max-width: 1023px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
