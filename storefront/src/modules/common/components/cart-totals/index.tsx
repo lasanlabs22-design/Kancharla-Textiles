@@ -12,69 +12,51 @@ type CartTotalsProps = {
     item_subtotal?: number | null
     shipping_subtotal?: number | null
     discount_subtotal?: number | null
+    shipping_methods?: unknown[] | null
   }
 }
 
+/** Bag / checkout / order totals. Prices on this store already include GST. */
 const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
-  const {
-    currency_code,
-    total,
-    tax_total,
-    item_subtotal,
-    shipping_subtotal,
-    discount_subtotal,
-  } = totals
+  const { currency_code, total, tax_total, item_subtotal, shipping_subtotal, discount_subtotal, shipping_methods } = totals
+  const money = (amount?: number | null) => convertToLocale({ amount: amount ?? 0, currency_code })
+  const shippingChosen = (shipping_methods?.length ?? 0) > 0
 
   return (
-    <div>
-      <div className="flex flex-col gap-y-2 txt-medium text-ui-fg-subtle ">
-        <div className="flex items-center justify-between">
-          <span>Subtotal (excl. shipping and taxes)</span>
-          <span data-testid="cart-subtotal" data-value={item_subtotal || 0}>
-            {convertToLocale({ amount: item_subtotal ?? 0, currency_code })}
-          </span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span>Shipping</span>
-          <span data-testid="cart-shipping" data-value={shipping_subtotal || 0}>
-            {convertToLocale({ amount: shipping_subtotal ?? 0, currency_code })}
-          </span>
-        </div>
+    <div className="text-[14px]">
+      <div className="flex flex-col gap-y-2.5 text-teak-muted">
+        <Row label="Items total" value={money(item_subtotal)} testId="cart-subtotal" dataValue={item_subtotal} />
+        <Row
+          label="Shipping (5% of order)"
+          value={shippingChosen ? money(shipping_subtotal) : "Added at checkout"}
+          testId="cart-shipping"
+          dataValue={shipping_subtotal}
+        />
         {!!discount_subtotal && (
-          <div className="flex items-center justify-between">
-            <span>Discount</span>
-            <span
-              className="text-ui-fg-interactive"
-              data-testid="cart-discount"
-              data-value={discount_subtotal || 0}
-            >
-              -{" "}
-              {convertToLocale({
-                amount: discount_subtotal ?? 0,
-                currency_code,
-              })}
-            </span>
-          </div>
+          <Row label="Discount" value={`– ${money(discount_subtotal)}`} testId="cart-discount" dataValue={discount_subtotal} />
         )}
-        <div className="flex justify-between">
-          <span className="flex gap-x-1 items-center ">Taxes</span>
-          <span data-testid="cart-taxes" data-value={tax_total || 0}>
-            {convertToLocale({ amount: tax_total ?? 0, currency_code })}
-          </span>
-        </div>
+        {/* GST is included in prices; only show a separate line if tax is actually added on top. */}
+        {!!tax_total && <Row label="GST" value={money(tax_total)} testId="cart-taxes" dataValue={tax_total} />}
       </div>
-      <div className="h-px w-full border-b border-gray-200 my-4" />
-      <div className="flex items-center justify-between text-ui-fg-base mb-2 txt-medium ">
-        <span>Total</span>
-        <span
-          className="txt-xlarge-plus"
-          data-testid="cart-total"
-          data-value={total || 0}
-        >
-          {convertToLocale({ amount: total ?? 0, currency_code })}
+      <div className="my-4 h-px w-full bg-teak-line" />
+      <div className="flex items-baseline justify-between text-teak">
+        <span className="font-medium">Total</span>
+        <span className="text-[20px] font-medium" data-testid="cart-total" data-value={total || 0}>
+          {money(total)}
         </span>
       </div>
-      <div className="h-px w-full border-b border-gray-200 mt-4" />
+      <p className="mt-1 text-right text-[12px] text-teak-muted">Inclusive of all taxes</p>
+    </div>
+  )
+}
+
+function Row({ label, value, testId, dataValue }: { label: string; value: string; testId: string; dataValue?: number | null }) {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <span>{label}</span>
+      <span className="text-teak" data-testid={testId} data-value={dataValue || 0}>
+        {value}
+      </span>
     </div>
   )
 }

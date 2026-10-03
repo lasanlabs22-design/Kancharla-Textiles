@@ -1,6 +1,5 @@
 import repeat from "@lib/util/repeat"
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Table } from "@medusajs/ui"
 
 import Item from "@modules/cart/components/item"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
@@ -11,45 +10,22 @@ type ItemsTemplateProps = {
 
 const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
   const items = cart?.items
+  const count = items?.reduce((n, i) => n + i.quantity, 0) ?? 0
+
   return (
     <div>
-      <div className="pb-3 flex items-center">
-        <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
-      </div>
-      <Table>
-        <Table.Header className="border-t-0">
-          <Table.Row className="text-ui-fg-subtle txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
-            <Table.HeaderCell className="hidden small:table-cell">
-              Price
-            </Table.HeaderCell>
-            <Table.HeaderCell className="!pr-0 text-right">
-              Total
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {items
-            ? items
-                .sort((a, b) => {
-                  return (a.created_at ?? "") > (b.created_at ?? "") ? -1 : 1
-                })
-                .map((item) => {
-                  return (
-                    <Item
-                      key={item.id}
-                      item={item}
-                      currencyCode={cart?.currency_code}
-                    />
-                  )
-                })
-            : repeat(5).map((i) => {
-                return <SkeletonLineItem key={i} />
-              })}
-        </Table.Body>
-      </Table>
+      <p className="kt-eyebrow">Shopping bag</p>
+      <h1 className="mt-2 font-display text-[clamp(28px,8vw,36px)] leading-tight text-teak">
+        Your bag <span className="text-teak-muted [font-variant-numeric:lining-nums]">({count} {count === 1 ? "item" : "items"})</span>
+      </h1>
+      <div className="zari-thread mt-4 w-20" />
+      <ul className="mt-4 divide-y divide-teak-line border-y border-teak-line">
+        {items
+          ? items
+              .sort((a, b) => ((a.created_at ?? "") > (b.created_at ?? "") ? -1 : 1))
+              .map((item) => <Item key={item.id} item={item} currencyCode={cart?.currency_code!} />)
+          : repeat(5).map((i) => <SkeletonLineItem key={i} />)}
+      </ul>
     </div>
   )
 }
