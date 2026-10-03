@@ -75,12 +75,13 @@ const CartDropdown = ({
 
   return (
     <div
-      className="h-full z-50"
+      className="flex h-full items-center z-50"
       onMouseEnter={openAndCancel}
       onMouseLeave={close}
     >
-      <Popover className="relative h-full">
-        <PopoverButton className="h-full">
+      {/* flex + items-center keep the bag on the same line as the profile/wishlist icons (a bare button sits on the text baseline) */}
+      <Popover className="relative flex h-full items-center">
+        <PopoverButton className="flex h-full items-center leading-none">
           <LocalizedClientLink
             className="relative flex items-center text-teak hover:text-kumkum transition-colors"
             href="/cart"

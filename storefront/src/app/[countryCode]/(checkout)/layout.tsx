@@ -16,8 +16,13 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
             <span className="block small:hidden">Back</span>
           </LocalizedClientLink>
           <LocalizedClientLink href="/" className="flex flex-col items-center" data-testid="store-link">
-            <span className="font-display text-2xl leading-none tracking-[0.2em] pl-[0.2em] text-kumkum">KANCHARLA</span>
-            <span className="text-[8px] tracking-[0.42em] pl-[0.42em] text-teak-muted mt-1">TEXTILES · MANGALAGIRI</span>
+            <span className="font-display text-center text-[18px] small:text-[22px] leading-[1.05] tracking-[0.16em] pl-[0.16em] text-kumkum whitespace-nowrap">
+              KANCHARLA
+              <br className="small:hidden" />
+              <span className="hidden small:inline"> </span>
+              TEXTILES
+            </span>
+            <span className="text-[8px] tracking-[0.42em] pl-[0.42em] font-medium text-zari-ink mt-1">MANGALAGIRI</span>
           </LocalizedClientLink>
           <div className="flex-1 basis-0 flex justify-end items-center gap-2 text-xs font-semibold text-teak-muted">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>

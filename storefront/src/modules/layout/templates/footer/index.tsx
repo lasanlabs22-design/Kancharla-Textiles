@@ -18,8 +18,12 @@ export default async function Footer() {
     <footer className="mt-10 bg-teak text-lime">
       <div className="content-container grid grid-cols-2 gap-x-6 gap-y-10 py-12 small:py-16 small:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="col-span-2 small:col-span-1">
-          <span className="block font-display text-4xl leading-none tracking-[0.24em] text-zari-light">KANCHARLA</span>
-          <span className="block mt-2 text-[11px] tracking-[0.5em] text-zari-light/80">TEXTILES</span>
+          <span className="block font-display text-[30px] small:text-[34px] leading-[1.05] tracking-[0.18em] text-zari-light">
+            KANCHARLA
+            <br />
+            TEXTILES
+          </span>
+          <span className="block mt-2.5 text-[11px] tracking-[0.5em] text-zari-light/80">MANGALAGIRI</span>
           <p className="mt-4 max-w-[38ch] text-sm text-lime/75">
             Sarees, kurtis, lehengas and leggings from Kancharla Textiles, a family of weavers and textile
             sellers in Mangalagiri, Andhra Pradesh.
