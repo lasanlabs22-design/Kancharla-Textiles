@@ -15,6 +15,12 @@
     overflow-x: clip;
   }
 
+  /* Google's floating reCAPTCHA badge would sit on top of the WhatsApp button; Google allows hiding it
+     as long as the form shows its notice (see PhoneLogin). */
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+
   /* iOS Safari zooms the page when a focused field's text is under 16px, so phones/tablets get 16px fields */
   @media (max-width: 1023px) {
     input,

@@ -1,4 +1,4 @@
-import { loadEnv, defineConfig, Modules } from '@medusajs/framework/utils'
+import { loadEnv, defineConfig, Modules, ContainerRegistrationKeys } from '@medusajs/framework/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
@@ -11,9 +11,33 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
+      // Owner/admin signs in with email + password; shoppers only with phone OTP.
+      authMethodsPerActor: {
+        user: ["emailpass"],
+        customer: ["firebase-otp"],
+      },
     }
   },
   modules: [
+    {
+      resolve: "@medusajs/medusa/auth",
+      dependencies: [Modules.CACHE, ContainerRegistrationKeys.LOGGER],
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/auth-emailpass",
+            id: "emailpass",
+          },
+          {
+            resolve: "./src/modules/firebase-auth",
+            id: "firebase-otp",
+            options: {
+              projectId: process.env.FIREBASE_PROJECT_ID,
+            },
+          },
+        ],
+      },
+    },
     {
       resolve: "@medusajs/medusa/fulfillment",
       options: {

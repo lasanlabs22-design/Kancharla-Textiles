@@ -10,10 +10,93 @@ import {
   getCacheOptions,
   getCacheTag,
   getCartId,
+  getPendingPhone,
   removeAuthToken,
   removeCartId,
+  removePendingPhone,
   setAuthToken,
+  setPendingPhone,
 } from "./cookies"
+
+/** Reads a JWT's payload without verifying it (the backend already verified it in the same request). */
+const jwtPayload = (token: string): Record<string, any> => {
+  try {
+    return JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString("utf8"))
+  } catch {
+    return {}
+  }
+}
+
+const afterSignIn = async () => {
+  const customerCacheTag = await getCacheTag("customers")
+  revalidateTag(customerCacheTag)
+  await transferCart().catch(() => {})
+}
+
+/**
+ * Step 1 of phone login: exchange the Firebase ID token (OTP confirmed in the browser) for a
+ * store session. Returning shoppers are signed in; first-timers are asked for their name next.
+ */
+export async function loginWithPhone(
+  idToken: string
+): Promise<{ status: "signed_in" } | { status: "needs_profile"; phone: string } | { status: "error"; message: string }> {
+  try {
+    const token = (await sdk.auth.login("customer", "firebase-otp", { id_token: idToken })) as string
+    await setAuthToken(token)
+
+    if (jwtPayload(token).actor_id) {
+      await afterSignIn()
+      return { status: "signed_in" }
+    }
+
+    // Verified by the backend in the login call above.
+    const phone = String(jwtPayload(idToken).phone_number ?? "")
+    await setPendingPhone(phone)
+    return { status: "needs_profile", phone }
+  } catch (error: any) {
+    return { status: "error", message: error?.message ?? "Could not sign you in. Please try again." }
+  }
+}
+
+/** Step 2 for first-time shoppers: create the customer (phone from the verified OTP) and refresh the session. */
+export async function completePhoneSignup(profile: {
+  first_name: string
+  last_name?: string
+  email: string
+}): Promise<{ status: "signed_in" } | { status: "error"; message: string }> {
+  const phone = await getPendingPhone()
+  const headers = await getAuthHeaders()
+  if (!phone || !("authorization" in headers)) {
+    return { status: "error", message: "Your verification expired. Please verify your mobile number again." }
+  }
+
+  try {
+    // Medusa's create-account workflow requires an email (used for order emails and GST invoices).
+    await sdk.store.customer.create(
+      {
+        phone,
+        first_name: profile.first_name.trim(),
+        last_name: profile.last_name?.trim() || undefined,
+        email: profile.email.trim().toLowerCase(),
+      },
+      {},
+      headers
+    )
+    const token = await sdk.auth.refresh(headers)
+    await setAuthToken(token as string)
+    await removePendingPhone()
+    await afterSignIn()
+    return { status: "signed_in" }
+  } catch (error: any) {
+    const message = String(error?.message ?? "")
+    return {
+      status: "error",
+      message: /email.*exists/i.test(message)
+        ? "That email is already linked to another account. Please use a different email."
+        : message || "Could not create your account. Please try again.",
+    }
+  }
+}
 
 export const retrieveCustomer =
   async (): Promise<HttpTypes.StoreCustomer | null> => {

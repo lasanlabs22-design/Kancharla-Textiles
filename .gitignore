@@ -4,6 +4,11 @@
 !.env.template
 !.env.example
 
+# Service-account keys (Firebase Admin etc.) live here, never in git
+secrets/
+*firebase-adminsdk*.json
+*service-account*.json
+
 # Dependencies and build output
 node_modules/
 .next/
