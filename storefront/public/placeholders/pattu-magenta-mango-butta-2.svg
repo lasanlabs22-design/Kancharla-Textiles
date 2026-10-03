@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <clipPath id="fold"><rect x="0" y="0" width="580" height="80"/></clipPath>
+    <pattern id="weave" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="none"/><path d="M0 4 H8 M4 0 V8" stroke="#ffffff" stroke-width="0.6" opacity="0.10"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1000" fill="#EFE6D6"/>
+  <rect x="60" y="120" width="680" height="700" fill="#B0185E"/>
+       <rect x="60" y="120" width="120" height="700" fill="#D4AF37" opacity="0.9"/>
+       <rect x="60" y="120" width="680" height="700" fill="url(#weave)"/>
+       <circle cx="460" cy="470" r="150" fill="none" stroke="#D4AF37" stroke-width="6" opacity="0.6"/>
+  <text x="400" y="910" text-anchor="middle" font-family="Georgia, serif" font-size="26" letter-spacing="5" fill="#2A1A12" opacity="0.55">KANCHARLA TEXTILES · SAREE</text>
+</svg>

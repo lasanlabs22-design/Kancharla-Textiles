@@ -1,0 +1,177 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label {
+    @apply -translate-y-2 text-xsmall-regular;
+  }
+
+  input:focus ~ label {
+    @apply left-0;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    border: 1px solid #212121;
+    -webkit-text-fill-color: #212121;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+@layer components {
+  .content-container {
+    @apply max-w-[1440px] w-full mx-auto px-4 small:px-8;
+  }
+
+  /* Nizam zari border, refined: two soft-gold hairlines with a faint temple-triangle row between */
+  .zari-band {
+    height: 9px;
+    background:
+      linear-gradient(#b8955a, #b8955a) 0 0 / 100% 1px no-repeat,
+      linear-gradient(#b8955a, #b8955a) 0 8px / 100% 1px no-repeat,
+      linear-gradient(135deg, rgba(184, 149, 90, 0.55) 25%, transparent 25.5%) 0 2px / 6px 6px repeat-x,
+      linear-gradient(225deg, rgba(184, 149, 90, 0.55) 25%, transparent 25.5%) 0 2px / 6px 6px repeat-x;
+  }
+  /* Double gold hairline */
+  .zari-thread {
+    height: 3px;
+    background:
+      linear-gradient(#b8955a, #b8955a) 0 0 / 100% 1px no-repeat,
+      linear-gradient(#b8955a, #b8955a) 0 2px / 100% 1px no-repeat;
+  }
+
+  .kt-eyebrow {
+    @apply text-[11px] font-normal uppercase tracking-[0.28em] text-zari;
+  }
+
+  .kt-btn {
+    @apply inline-flex items-center justify-center gap-2 bg-teak px-8 h-12 text-[12px] font-normal uppercase tracking-[0.22em] text-lime transition-colors hover:bg-kumkum;
+  }
+
+  .kt-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border border-teak/70 px-8 h-12 text-[12px] font-normal uppercase tracking-[0.22em] text-teak transition-colors hover:bg-teak hover:text-lime;
+  }
+
+  .kt-link {
+    @apply text-[12px] uppercase tracking-[0.2em] text-teak border-b border-zari pb-1 hover:text-kumkum hover:border-kumkum transition-colors;
+  }
+
+  /* Product rail: swipeable row on phones/tablets, plain grid from `small` up (set small:grid-cols-* where used) */
+  .kt-rail {
+    @apply -mx-4 flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4 px-4 no-scrollbar small:mx-0 small:grid small:gap-x-5 small:gap-y-10 small:overflow-visible small:px-0;
+  }
+  .kt-rail > li {
+    @apply w-[44%] xsmall:w-[30%] shrink-0 snap-start small:w-auto;
+  }
+
+  /* Pit-loom warp shimmer for loading skeletons */
+  .warp-shimmer {
+    background:
+      repeating-linear-gradient(90deg, rgba(31, 26, 23, 0.04) 0 2px, transparent 2px 7px),
+      linear-gradient(90deg, #f3ede3 0%, #fbf8f3 50%, #f3ede3 100%);
+    background-size: auto, 200% 100%;
+    animation: warp 1.6s linear infinite;
+  }
+
+  @keyframes warp {
+    from { background-position: 0 0, 100% 0; }
+    to { background-position: 0 0, -100% 0; }
+  }
+
+  @keyframes tier-rise {
+    from { transform: translateY(8px); opacity: 0.3; }
+    to { transform: none; opacity: 1; }
+  }
+  .tier-rise { animation: tier-rise 0.6s ease-out both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tier-rise, .warp-shimmer { animation: none; }
+  }
+
+  .contrast-btn {
+    @apply px-4 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors duration-200 ease-in;
+  }
+
+  .text-xsmall-regular {
+    @apply text-[10px] leading-4 font-normal;
+  }
+
+  .text-small-regular {
+    @apply text-xs leading-5 font-normal;
+  }
+
+  .text-small-semi {
+    @apply text-xs leading-5 font-semibold;
+  }
+
+  .text-base-regular {
+    @apply text-sm leading-6 font-normal;
+  }
+
+  .text-base-semi {
+    @apply text-sm leading-6 font-semibold;
+  }
+
+  .text-large-regular {
+    @apply text-base leading-6 font-normal;
+  }
+
+  .text-large-semi {
+    @apply text-base leading-6 font-semibold;
+  }
+
+  .text-xl-regular {
+    @apply text-2xl leading-[36px] font-normal;
+  }
+
+  .text-xl-semi {
+    @apply text-2xl leading-[36px] font-semibold;
+  }
+
+  .text-2xl-regular {
+    @apply text-[30px] leading-[48px] font-normal;
+  }
+
+  .text-2xl-semi {
+    @apply text-[30px] leading-[48px] font-semibold;
+  }
+
+  .text-3xl-regular {
+    @apply text-[32px] leading-[44px] font-normal;
+  }
+
+  .text-3xl-semi {
+    @apply text-[32px] leading-[44px] font-semibold;
+  }
+}

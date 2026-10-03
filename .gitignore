@@ -1,0 +1,20 @@
+# Secrets: never commit real env files (templates are fine)
+.env
+.env.*
+!.env.template
+!.env.example
+
+# Dependencies and build output
+node_modules/
+.next/
+.medusa/
+dist/
+build/
+*.tsbuildinfo
+
+# Local tooling
+.claude/
+.vscode/
+.idea/
+.DS_Store
+*.log

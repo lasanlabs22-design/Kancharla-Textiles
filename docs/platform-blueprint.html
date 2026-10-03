@@ -1,0 +1,966 @@
+<title>Kancharla Textiles Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Hind+Guntur:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky contents rail + one reading column; zari-border bands mark the top of the page and each major break. */
+:root {
+  --bg: #F5EFE3;          /* gopuram lime-wash */
+  --surface: #FFFCF6;
+  --ink: #2A1A12;         /* temple teak */
+  --muted: #6D5B4E;
+  --line: #E2D5BF;
+  --kumkum: #A8241B;      /* kumkum vermilion */
+  --haldi: #D99A1E;       /* turmeric */
+  --zari: #B08423;        /* Nizam zari gold, decoration only */
+  --granite: #4C4641;     /* hill stone */
+  --indigo: #24406A;      /* handloom indigo */
+  --tier: #FBF7EE;
+  --kumkum-soft: #F6E2DA;
+  --code-bg: #F0E8D9;
+  --f-display: "Marcellus", "Cormorant Garamond", Georgia, serif;
+  --f-body: "Hind Guntur", "Segoe UI", system-ui, sans-serif;
+  --f-telugu: "Ramaraja", "Hind Guntur", "Nirmala UI", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16100C; --surface: #201812; --ink: #F2E8D7; --muted: #B5A18B; --line: #3A2B20;
+    --kumkum: #E2594C; --haldi: #EFBC4A; --zari: #D6AC55; --granite: #A79E95; --indigo: #93AEDD;
+    --tier: #2A2018; --kumkum-soft: #3B1C17; --code-bg: #271D16; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16100C; --surface: #201812; --ink: #F2E8D7; --muted: #B5A18B; --line: #3A2B20;
+  --kumkum: #E2594C; --haldi: #EFBC4A; --zari: #D6AC55; --granite: #A79E95; --indigo: #93AEDD;
+  --tier: #2A2018; --kumkum-soft: #3B1C17; --code-bg: #271D16; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+a { color: var(--kumkum); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--kumkum); outline-offset: 2px; }
+code, .mono { font-family: var(--f-mono); font-size: 0.86em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0; }
+.te { font-family: var(--f-telugu); }
+
+/* Nizam zari border band: kumkum ground, two gold threads, temple-triangle row */
+.zari {
+  height: 22px;
+  background:
+    linear-gradient(var(--zari), var(--zari)) 0 3px / 100% 1px no-repeat,
+    linear-gradient(var(--zari), var(--zari)) 0 18px / 100% 1px no-repeat,
+    linear-gradient(135deg, var(--zari) 25%, transparent 25.5%) 0 6px / 12px 12px repeat-x,
+    linear-gradient(225deg, var(--zari) 25%, transparent 25.5%) 0 6px / 12px 12px repeat-x,
+    var(--kumkum);
+}
+.zari.thin { height: 8px; background: linear-gradient(var(--zari), var(--zari)) 0 2px / 100% 1px no-repeat, var(--kumkum); }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 20px; }
+.layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 56px; padding-block: 40px 80px; }
+@media (max-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr); } .toc { display: none; } }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 40px; align-items: end; padding-block: 48px 36px; border-bottom: 1px solid var(--line); }
+@media (max-width: 760px) { .hero { grid-template-columns: minmax(0, 1fr); } .hero svg { max-width: 180px; } }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); margin-block: 10px 6px; }
+.hero .tagline { font-family: var(--f-display); font-size: 1.4rem; color: var(--kumkum); }
+.hero .lede { max-width: 62ch; color: var(--muted); font-size: 1.08rem; margin-top: 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chip { font-size: 13px; padding: 4px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); white-space: nowrap; }
+.chip b { color: var(--kumkum); font-weight: 600; }
+
+.gopuram .tier { fill: var(--tier); stroke: var(--ink); stroke-width: 1.2; }
+.gopuram .niche { fill: var(--kumkum); }
+.gopuram .base { fill: var(--tier); stroke: var(--ink); stroke-width: 1.4; }
+.gopuram .door { fill: var(--ink); }
+.gopuram .kalasa { fill: var(--zari); }
+.gopuram .ground { stroke: var(--zari); stroke-width: 2; }
+@keyframes rise { from { transform: translateY(6px); opacity: 0.35; } to { transform: none; opacity: 1; } }
+.gopuram .tier, .gopuram .niche { animation: rise 0.6s ease-out both; }
+
+/* Contents rail */
+.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 14px; }
+.toc p { margin-bottom: 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+.toc a { display: block; padding: 4px 0 4px 14px; color: var(--muted); text-decoration: none; margin-left: -1px; border-left: 2px solid transparent; }
+.toc a:hover { color: var(--ink); border-left-color: var(--kumkum); }
+
+main { min-width: 0; display: grid; gap: 72px; }
+section { display: grid; gap: 20px; min-width: 0; scroll-margin-top: 24px; }
+section > header { display: grid; gap: 8px; }
+section > header p { color: var(--muted); max-width: 68ch; }
+.prose { display: grid; gap: 12px; max-width: 72ch; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--code-bg); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+.yes { color: var(--indigo); font-weight: 600; }
+.no { color: var(--muted); }
+
+/* Decision cards */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.card .k { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.card .v { font-family: var(--f-display); font-size: 1.25rem; }
+.card p { font-size: 14.5px; color: var(--muted); }
+
+/* Diagrams */
+.diagram { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px; }
+.diagram svg { display: block; min-width: 900px; width: 100%; height: auto; }
+.arch text { font-family: var(--f-body); fill: var(--ink); }
+.arch .zone { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.arch .zone.cf { stroke: var(--haldi); }
+.arch .zone.rw { stroke: var(--indigo); }
+.arch .zone.ext { stroke-dasharray: 5 4; stroke: var(--muted); }
+.arch .zl { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; fill: var(--muted); }
+.arch .box { fill: var(--bg); stroke: var(--line); stroke-width: 1.2; }
+.arch .box.hot { stroke: var(--kumkum); stroke-width: 1.6; }
+.arch .t { font-size: 13px; font-weight: 600; }
+.arch .s { font-size: 11px; fill: var(--muted); }
+.arch .ln { stroke: var(--granite); stroke-width: 1.3; fill: none; }
+.arch .ln.dash { stroke-dasharray: 4 3; stroke: var(--kumkum); }
+.arch .ah { fill: var(--granite); }
+.arch .ahk { fill: var(--kumkum); }
+.arch .lbl { font-family: var(--f-mono); font-size: 10px; fill: var(--muted); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+.arch .lbl.k { fill: var(--kumkum); }
+pre.mermaid { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; overflow-x: auto; margin: 0; }
+.caption { font-size: 13.5px; color: var(--muted); max-width: 72ch; }
+
+/* Storefront header mock */
+.mock { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.mock-scroll { overflow-x: auto; }
+.mock-inner { min-width: 900px; }
+.mock-bar { display: flex; align-items: center; gap: 26px; padding: 14px 22px; border-bottom: 1px solid var(--line); }
+.logo { font-family: var(--f-display); font-size: 26px; letter-spacing: 0.18em; color: var(--kumkum); line-height: 1; }
+.logo small { display: block; font-family: var(--f-body); font-size: 9px; letter-spacing: 0.32em; color: var(--muted); margin-top: 3px; }
+.mock-nav { display: flex; gap: 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.mock-nav span { padding-block: 6px; border-bottom: 2px solid transparent; white-space: nowrap; }
+.mock-nav .on { border-bottom-color: var(--kumkum); color: var(--kumkum); }
+.mock-search { flex: 1; min-width: 180px; font-size: 13px; color: var(--muted); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 8px 12px; }
+.mock-icons { display: flex; gap: 18px; font-size: 11px; font-weight: 600; color: var(--ink); }
+.mock-icons span { display: grid; justify-items: center; gap: 2px; }
+.mock-icons i { width: 18px; height: 18px; border: 1.6px solid var(--ink); border-radius: 50%; display: block; }
+.mock-icons i.bag { border-radius: 3px 3px 5px 5px; }
+.mock-icons i.heart { border-radius: 50% 50% 4px 50%; transform: rotate(45deg) scale(0.85); }
+.mega { display: grid; grid-template-columns: repeat(3, 1fr) 220px; gap: 28px; padding: 22px; }
+.mega h4 { margin: 0 0 8px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--kumkum); }
+.mega ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; font-size: 14px; }
+.promo { border-radius: 6px; padding: 16px; color: #FFF8EC; display: grid; align-content: end; min-height: 170px;
+  background:
+    linear-gradient(180deg, transparent 40%, rgba(40, 14, 8, 0.75)),
+    repeating-linear-gradient(90deg, #8E1D16 0 14px, #A8241B 14px 15px),
+    #8E1D16; }
+.promo b { font-family: var(--f-display); font-weight: 400; font-size: 20px; }
+.promo span { font-size: 12px; opacity: 0.85; }
+
+/* Category tree */
+.tree { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; font-size: 14.5px; overflow-x: auto; }
+.tree ul { list-style: none; margin: 0; padding-left: 22px; border-left: 1px dashed var(--line); }
+.tree > ul { padding-left: 0; border: 0; display: grid; gap: 6px; }
+.tree li { padding-block: 2px; }
+.tree .n { font-weight: 600; }
+.tree .u { font-family: var(--f-mono); font-size: 12px; color: var(--muted); margin-left: 8px; white-space: nowrap; }
+.tree .tag { font-size: 11px; font-weight: 600; color: var(--kumkum); border: 1px solid currentColor; border-radius: 3px; padding: 0 5px; margin-left: 6px; }
+
+/* Palette swatches */
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.sw { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
+.sw .chip-c { height: 64px; }
+.sw div:last-child { padding: 10px 12px; font-size: 13px; display: grid; gap: 2px; }
+.sw b { font-size: 14px; }
+.sw .mono { color: var(--muted); }
+
+.motifs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.motif { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; display: grid; }
+.motif .art { height: 70px; border-bottom: 1px solid var(--line); background: var(--bg); display: grid; place-items: center; }
+.motif .body { padding: 14px 16px; display: grid; gap: 4px; font-size: 14.5px; }
+.motif .body b { font-family: var(--f-display); font-weight: 400; font-size: 1.15rem; }
+.motif .body span { color: var(--muted); }
+.warp { width: 100%; height: 100%; background: repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 7px), linear-gradient(90deg, transparent, var(--kumkum-soft), transparent); }
+.kolam { width: 100%; height: 100%; background-image: radial-gradient(var(--granite) 1.4px, transparent 1.6px); background-size: 14px 14px; opacity: 0.6; }
+
+.typespec { display: grid; gap: 10px; }
+.typerow { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: baseline; padding-block: 12px; border-bottom: 1px solid var(--line); }
+@media (max-width: 560px) { .typerow { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+.typerow .k { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+
+ul.list { margin: 0; padding-left: 20px; display: grid; gap: 7px; max-width: 74ch; }
+ul.list li::marker { color: var(--kumkum); }
+
+pre.code { background: var(--code-bg); border-radius: 6px; padding: 16px 18px; overflow-x: auto; font-family: var(--f-mono); font-size: 13px; line-height: 1.55; margin: 0; }
+
+/* Roadmap */
+.phases { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 8px; }
+.phase { position: relative; padding: 0 0 24px 26px; display: grid; gap: 6px; }
+.phase::before { content: ""; position: absolute; left: -8px; top: 5px; width: 12px; height: 12px; background: var(--bg); border: 2px solid var(--kumkum); transform: rotate(45deg); }
+.phase .when { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.phase h3 { font-size: 1.2rem; }
+.phase p { color: var(--muted); font-size: 15px; max-width: 72ch; }
+
+.callout { background: var(--kumkum-soft); border-radius: 6px; padding: 14px 18px; font-size: 15px; max-width: 76ch; }
+.callout b { color: var(--kumkum); }
+
+ol.qs { margin: 0; padding-left: 22px; display: grid; gap: 12px; max-width: 76ch; }
+ol.qs li::marker { font-family: var(--f-mono); color: var(--kumkum); }
+ol.qs b { display: block; }
+ol.qs span { color: var(--muted); font-size: 15px; }
+
+footer.end { padding-block: 28px 40px; color: var(--muted); font-size: 13px; }
+</style>
+
+<div class="zari" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">System design · v1.2 · 2 Oct 2026 · Prepared for Kancharla Textiles</div>
+      <h1>Kancharla Textiles Platform Blueprint</h1>
+      <div class="tagline">From Mangalagiri, to every home</div>
+      <p class="lede">The plan for rebuilding kimai.store as a premium ethnic-wear store. The browsing and checkout follow AJIO and Myntra conventions, and the visual design comes from Mangalagiri: the temple gopuram, the handloom zari border and the town's arts. It covers the storefront, customer accounts with order tracking, and an admin console where changes to categories, menus and banners show up on the live site within seconds.</p>
+      <div class="chips">
+        <span class="chip"><b>Launch</b> Fri 9 Oct 2026</span>
+        <span class="chip"><b>Storefront</b> Next.js on Cloudflare</span>
+        <span class="chip"><b>Commerce</b> Medusa v2 on Railway</span>
+        <span class="chip"><b>Data</b> Postgres on Railway</span>
+        <span class="chip"><b>Login</b> Firebase phone OTP</span>
+        <span class="chip"><b>Payments</b> PhonePe PG + COD</span>
+        <span class="chip"><b>Shipping</b> Delhivery</span>
+      </div>
+    </div>
+    <svg class="gopuram" viewBox="0 0 240 300" role="img" aria-label="Eleven-tier gopuram, after the Gali Gopuram at Mangalagiri">
+      <line class="ground" x1="10" y1="294" x2="230" y2="294"/>
+      <rect class="base" x="45" y="230" width="150" height="64"/>
+      <path class="door" d="M104 294 V256 Q120 238 136 256 V294 Z"/>
+      <rect class="tier" x="55" y="214" width="130" height="14" style="animation-delay:.00s"/>
+      <rect class="tier" x="59" y="198" width="122" height="14" style="animation-delay:.05s"/>
+      <rect class="tier" x="63" y="182" width="114" height="14" style="animation-delay:.10s"/>
+      <rect class="tier" x="67" y="166" width="106" height="14" style="animation-delay:.15s"/>
+      <rect class="tier" x="71" y="150" width="98" height="14" style="animation-delay:.20s"/>
+      <rect class="tier" x="75" y="134" width="90" height="14" style="animation-delay:.25s"/>
+      <rect class="tier" x="79" y="118" width="82" height="14" style="animation-delay:.30s"/>
+      <rect class="tier" x="83" y="102" width="74" height="14" style="animation-delay:.35s"/>
+      <rect class="tier" x="87" y="86" width="66" height="14" style="animation-delay:.40s"/>
+      <rect class="tier" x="91" y="70" width="58" height="14" style="animation-delay:.45s"/>
+      <rect class="tier" x="95" y="54" width="50" height="14" style="animation-delay:.50s"/>
+      <rect class="niche" x="116" y="217" width="8" height="8"/><rect class="niche" x="116" y="201" width="8" height="8"/>
+      <rect class="niche" x="116" y="185" width="8" height="8"/><rect class="niche" x="116" y="169" width="8" height="8"/>
+      <rect class="niche" x="116" y="153" width="8" height="8"/><rect class="niche" x="116" y="137" width="8" height="8"/>
+      <rect class="niche" x="116" y="121" width="8" height="8"/><rect class="niche" x="116" y="105" width="8" height="8"/>
+      <rect class="niche" x="116" y="89" width="8" height="8"/><rect class="niche" x="116" y="73" width="8" height="8"/>
+      <rect class="niche" x="116" y="57" width="8" height="8"/>
+      <path class="tier" d="M92 54 L148 54 L148 44 Q120 24 92 44 Z"/>
+      <g class="kalasa">
+        <ellipse cx="102" cy="34" rx="3" ry="4"/><ellipse cx="111" cy="30" rx="3" ry="4"/><ellipse cx="120" cy="28" rx="3.2" ry="4.4"/>
+        <ellipse cx="129" cy="30" rx="3" ry="4"/><ellipse cx="138" cy="34" rx="3" ry="4"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Contents">
+      <p class="eyebrow">Contents</p>
+      <ol>
+        <li><a href="#audit">Site audit</a></li>
+        <li><a href="#design">Design language</a></li>
+        <li><a href="#stack">Stack decisions</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#catalog">Catalog &amp; navigation</a></li>
+        <li><a href="#admin">Admin console</a></li>
+        <li><a href="#storefront">Storefront</a></li>
+        <li><a href="#auth">Customer login</a></li>
+        <li><a href="#checkout">Checkout &amp; payments</a></li>
+        <li><a href="#tracking">Order tracking</a></li>
+        <li><a href="#data">Data model</a></li>
+        <li><a href="#caching">Caching &amp; CDN</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#devops">Repo &amp; deployment</a></li>
+        <li><a href="#roadmap">Launch plan</a></li>
+        <li><a href="#questions">Client requirements</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- AUDIT -->
+      <section id="audit">
+        <header>
+          <div class="eyebrow">Where we start</div>
+          <h2>Site audit: kimai.store vs Mouni Rajashekar Collections</h2>
+          <p>Both sites were reviewed page by page on 2 Oct 2026. The current store is a single-category leggings store. The reference site is the category depth the client wants to reach.</p>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Area</th><th>kimai.store (today)</th><th>mounirajashekarcollections.com</th><th>New Kancharla Textiles</th></tr></thead>
+            <tbody>
+              <tr><td>Platform</td><td>WooCommerce (WordPress theme)</td><td>Shopify theme by Growww Tech</td><td>Headless: Next.js + Medusa v2</td></tr>
+              <tr><td>Catalog</td><td>23 products, all ankle leggings, 1 category; each colour is a separate product</td><td>6 top-level categories, 14 saree types, 234+ sarees, SKU codes (MRC489)</td><td>The nested tree in <a href="#catalog">Catalog</a>, with styles grouped into colour swatches</td></tr>
+              <tr><td>Price / MRP</td><td>₹499 / ₹700, 29% off badges</td><td>₹495 – ₹3,500, "On sale" badges</td><td>MRP + sale price lists, % off badge</td></tr>
+              <tr><td>Listing page</td><td>12 per page, filters for price, size and stock, 5 sort options</td><td>Filters for price, category and stock, 7 sort options, "Load more"</td><td>AJIO-style filter rail with fabric, colour, occasion, discount, price and size, plus infinite load</td></tr>
+              <tr><td>Accounts</td><td>Email + password, WooCommerce "My account"</td><td>Shopify customer accounts</td><td>Browse freely; phone OTP asked only at checkout (Firebase)</td></tr>
+              <tr><td>Order tracking</td><td class="no">None visible</td><td class="no">None visible</td><td class="yes">Live Delhivery timeline + email updates</td></tr>
+              <tr><td>Wishlist</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes, synced to the account</td></tr>
+              <tr><td>Reviews</td><td>Static testimonials</td><td>Rating widget, 4.14★ from 332 reviews</td><td>Testimonials at launch, verified-buyer reviews after</td></tr>
+              <tr><td>Mobile</td><td>Responsive theme</td><td>Bottom tab bar</td><td>App-like bottom bar, bag drawer</td></tr>
+              <tr><td>Extras</td><td>Compare, quick view, WhatsApp button</td><td>Quick view, WhatsApp, INR/USD switch, 18+ age modal</td><td>Quick view, WhatsApp, pincode delivery-date check. The age modal is dropped.</td></tr>
+              <tr><td>Stores</td><td colspan="2">Kancharla Textiles, Mangalagiri and Kavali (AP) · 7780136846, 9553525888</td><td>All orders ship from Kancharla Textiles, Mangalagiri</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout"><b>A fresh start:</b> no customers or orders are migrated from WooCommerce. We keep the reference site's category depth and saree taxonomy, and add 301 redirects from the old kimai.store URLs so existing search rankings aren't lost.</div>
+      </section>
+
+      <!-- DESIGN -->
+      <section id="design">
+        <header>
+          <div class="eyebrow">Theme: Mangalagiri arts</div>
+          <h2>Design language: Myntra's structure, Mangalagiri's soul</h2>
+          <p>Navigation, filters, bag and checkout follow the patterns Indian shoppers already know from AJIO and Myntra. The colours, borders, type and motion come from Mangalagiri's temple on the hill and the pit looms in its weaving lanes. This page uses the same palette and motifs, so it doubles as a preview.</p>
+        </header>
+
+        <h3>Palette</h3>
+        <div class="swatches">
+          <div class="sw"><div class="chip-c" style="background:#F5EFE3"></div><div><b>Gopuram lime</b><span class="mono">#F5EFE3 · page ground</span><span>The lime-washed tiers of the Gali Gopuram</span></div></div>
+          <div class="sw"><div class="chip-c" style="background:#A8241B"></div><div><b>Kumkum</b><span class="mono">#A8241B · primary, CTAs</span><span>Kumkum at the temple threshold, and the red Mangalagiri border</span></div></div>
+          <div class="sw"><div class="chip-c" style="background:#B08423"></div><div><b>Zari gold</b><span class="mono">#B08423 · borders only</span><span>The Nizam zari border. Too low-contrast for text.</span></div></div>
+          <div class="sw"><div class="chip-c" style="background:#D99A1E"></div><div><b>Haldi</b><span class="mono">#D99A1E · offers, badges</span><span>Turmeric, and the jaggery panakam offered on the hill</span></div></div>
+          <div class="sw"><div class="chip-c" style="background:#24406A"></div><div><b>Handloom indigo</b><span class="mono">#24406A · links, info</span><span>Indigo-dyed Mangalagiri cotton</span></div></div>
+          <div class="sw"><div class="chip-c" style="background:#2A1A12"></div><div><b>Temple teak</b><span class="mono">#2A1A12 · text</span><span>Carved teak doors and the dark stone of the hill</span></div></div>
+        </div>
+        <p class="caption">Dark mode is "the temple at night": lamp-lit teak grounds with brighter kumkum and gold. Every pair is checked for WCAG AA contrast, and gold is used only for borders and ornament, never for text.</p>
+
+        <h3>Type</h3>
+        <div class="typespec">
+          <div class="typerow"><span class="k">Display · Marcellus</span><span style="font-family:var(--f-display);font-size:1.8rem">Gadwal Pattu, woven for the festival</span></div>
+          <div class="typerow"><span class="k">Body · Hind Guntur</span><span>Pure cotton with a 2-inch Nizam zari border. 5.5 m saree + 0.8 m blouse piece. The typeface is named after Guntur district, Mangalagiri's home.</span></div>
+          <div class="typerow"><span class="k">Data · IBM Plex Mono</span><span class="mono">KM-SAR-MNG-0142 · AWB 1490 2217 3305</span></div>
+        </div>
+        <p class="caption">Marcellus has the cut-stone feel of temple inscriptions. It's used for headings and prices only. Product names, filters and forms stay in Hind Guntur so they read fast on small screens.</p>
+
+        <h3>Motifs and where they appear</h3>
+        <div class="motifs">
+          <div class="motif"><div class="art"><svg viewBox="0 0 120 50" width="120" height="50" aria-hidden="true" class="gopuram"><rect class="tier" x="20" y="38" width="80" height="9"/><rect class="tier" x="28" y="28" width="64" height="9"/><rect class="tier" x="36" y="18" width="48" height="9"/><rect class="tier" x="44" y="8" width="32" height="9"/><rect class="niche" x="57" y="40" width="6" height="5"/><rect class="niche" x="57" y="30" width="6" height="5"/><rect class="niche" x="57" y="20" width="6" height="5"/></svg></div><div class="body"><b>Gopuram tiers</b><span>Frames the hero, and the page loader stacks 11 tiers like the Gali Gopuram. Section breaks use a stepped outline.</span></div></div>
+          <div class="motif"><div class="art"><div class="zari" style="width:100%"></div></div><div class="body"><b>Nizam zari border</b><span>The saree border Mangalagiri is known for. Used under the header, on category tiles, the price block and the footer.</span></div></div>
+          <div class="motif"><div class="art"><div class="warp"></div></div><div class="body"><b>Pit-loom warp</b><span>The loading skeleton shimmers across vertical warp threads instead of grey blocks.</span></div></div>
+          <div class="motif"><div class="art"><div class="kolam"></div></div><div class="body"><b>Kolam dot grid</b><span>A faint texture on account, empty-bag and order-confirmed screens. It never sits behind product images.</span></div></div>
+          <div class="motif"><div class="art"><svg viewBox="0 0 60 40" width="60" height="40" aria-hidden="true"><path d="M30 6 Q36 14 30 20 Q24 14 30 6 Z" fill="var(--haldi)"/><path d="M14 24 H46 Q44 34 30 34 Q16 34 14 24 Z" fill="var(--kumkum)"/></svg></div><div class="body"><b>Deepam</b><span>The lit lamp marks success: order placed, payment confirmed, review posted.</span></div></div>
+          <div class="motif"><div class="art"><svg viewBox="0 0 120 30" width="120" height="30" aria-hidden="true"><path d="M0 22 L10 8 L20 22 L30 8 L40 22 L50 8 L60 22 L70 8 L80 22 L90 8 L100 22 L110 8 L120 22" fill="none" stroke="var(--zari)" stroke-width="2"/></svg></div><div class="body"><b>Temple triangle border</b><span>The kotakomma triangle row frames festival campaign banners.</span></div></div>
+        </div>
+
+        <h3>Rules for the theme</h3>
+        <ul class="list">
+          <li><b>Products come first.</b> Ornament lives in borders, headers and empty states. Product grids and PDP galleries stay clean on lime-white, the way they do on Myntra.</li>
+          <li><b>Treat sacred imagery with respect.</b> Use the temple's architecture, the hill and the looms. Keep deity images and religious symbols off price tags, discount badges and footers.</li>
+          <li><b>English only.</b> All text on the site is in English. The Mangalagiri character comes from colour, borders and motifs, not language.</li>
+          <li><b>Motion stays calm:</b> tiers rise once on first load, and the zari border draws in on hover. Everything respects reduced motion.</li>
+          <li><b>Festival banners:</b> for launch, the owner swaps hero banners by hand. Scheduled festival themes come after launch.</li>
+          <li><b>The admin console stays plain.</b> It gets only a kumkum accent and the logo, because the owner needs speed, not decoration.</li>
+        </ul>
+      </section>
+
+      <!-- STACK -->
+      <section id="stack">
+        <header>
+          <div class="eyebrow">Locked decisions</div>
+          <h2>Stack decisions</h2>
+          <p>Each choice below was confirmed with the team or follows from one that was.</p>
+        </header>
+        <div class="grid2">
+          <div class="card"><span class="k">Storefront</span><span class="v">Next.js (App Router) on Cloudflare Workers</span><p>Deployed with the OpenNext Cloudflare adapter. Pages are server-rendered at the edge and cached by tag, so the site stays fast in Tier-2 and Tier-3 towns.</p></div>
+          <div class="card"><span class="k">Commerce engine</span><span class="v">Medusa v2 on Railway</span><p>Open-source and written in TypeScript. Products, variants, pricing, inventory, carts and orders come built in. We add small custom modules for menus, homepage content, wishlist and store rules.</p></div>
+          <div class="card"><span class="k">Database</span><span class="v">PostgreSQL + Redis on Railway</span><p>Postgres holds all customer, catalog and order data. Redis carries Medusa's event bus, workflow locks and cache.</p></div>
+          <div class="card"><span class="k">Customer login</span><span class="v">Firebase phone OTP, at checkout</span><p>Anyone can browse and fill a bag. The OTP is asked at checkout, as on AJIO and Myntra. Firebase only proves who owns the number, and the customer record lives in Postgres.</p></div>
+          <div class="card"><span class="k">Payments</span><span class="v">PhonePe PG + Cash on delivery</span><p>PhonePe Standard Checkout for UPI, cards and netbanking, confirmed by signed callbacks. COD is a second payment option, with the cash collected by Delhivery. The owner can switch COD off in the admin.</p></div>
+          <div class="card"><span class="k">Logistics</span><span class="v">Delhivery</span><p>Pincode serviceability and delivery-date estimates, waybill creation, labels, pickup requests and tracking scans.</p></div>
+          <div class="card"><span class="k">Media</span><span class="v">Cloudflare R2 + Images</span><p>R2 stores the original photos with no egress fees. Cloudflare Images serves AVIF/WebP at the sizes each screen needs.</p></div>
+          <div class="card"><span class="k">Search</span><span class="v">Postgres search at launch</span><p>Fine for the launch catalog and keeps Railway in budget. Meilisearch, which adds typo tolerance and synonyms like "pattu" for silk, can be added once the catalog grows.</p></div>
+          <div class="card"><span class="k">Email</span><span class="v">Resend</span><p>Order confirmation, shipping and delivery emails, with the GST invoice PDF attached. It sends from orders@kimai.store.</p></div>
+        </div>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section id="architecture">
+        <header>
+          <div class="eyebrow">System view</div>
+          <h2>Architecture</h2>
+          <p>Three zones. Cloudflare serves every customer request at the edge. Railway runs the commerce engine and data. Third-party services handle identity, money and parcels. The red dashed lines are how an admin change reaches the live site.</p>
+        </header>
+        <div class="diagram">
+          <svg class="arch" viewBox="0 0 1040 640" role="img" aria-label="Architecture diagram: shoppers and the owner reach Cloudflare, which serves the Next.js storefront and proxies to Medusa on Railway; Medusa talks to Postgres and Redis and to Firebase, PhonePe, Delhivery, Resend and an SMS provider.">
+            <defs>
+              <marker id="a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L8 4 L0 8 Z"/></marker>
+              <marker id="ak" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ahk" d="M0 0 L8 4 L0 8 Z"/></marker>
+            </defs>
+            <!-- zones -->
+            <rect class="zone cf" x="200" y="44" width="230" height="576" rx="8"/>
+            <text class="zl" x="216" y="66">CLOUDFLARE EDGE</text>
+            <rect class="zone rw" x="460" y="44" width="250" height="576" rx="8"/>
+            <text class="zl" x="476" y="66">RAILWAY</text>
+            <rect class="zone ext" x="740" y="44" width="280" height="576" rx="8"/>
+            <text class="zl" x="756" y="66">THIRD-PARTY SERVICES</text>
+            <text class="zl" x="20" y="66">PEOPLE</text>
+
+            <!-- lines (drawn under boxes) -->
+            <path class="ln" d="M170 135 L216 115" marker-end="url(#a)"/>
+            <path class="ln" d="M315 140 V152" marker-end="url(#a)"/>
+            <path class="ln" d="M315 208 V220" marker-end="url(#a)"/>
+            <path class="ln" d="M315 292 V304" marker-end="url(#a)"/>
+            <path class="ln" d="M414 256 C446 256 444 120 476 120" marker-end="url(#a)"/>
+            <text class="lbl" x="420" y="186">Store API</text>
+            <path class="ln" d="M585 156 V430"/>
+            <path class="ln" d="M694 120 H725 M694 196 H725 M725 116 V462"/>
+            <path class="ln" d="M725 116 H756" marker-end="url(#a)"/>
+            <path class="ln" d="M725 200 H756" marker-end="url(#a)" marker-start="url(#a)"/>
+            <path class="ln" d="M725 284 H756" marker-end="url(#a)" marker-start="url(#a)"/>
+            <path class="ln" d="M725 368 H756" marker-end="url(#a)"/>
+            <path class="ln" d="M725 462 H756" marker-end="url(#a)"/>
+            <text class="lbl" x="700" y="604">server-to-server · signed webhooks</text>
+            <path class="ln" d="M170 475 H216" marker-end="url(#a)"/>
+            <path class="ln" d="M414 475 H476" marker-end="url(#a)"/>
+            <path class="ln dash" d="M476 196 C446 196 446 180 414 180" marker-end="url(#ak)"/>
+            <text class="lbl k" x="408" y="146" text-anchor="end">revalidate + purge</text>
+            <path class="ln dash" d="M476 450 C446 450 446 332 414 332" marker-end="url(#ak)"/>
+            <text class="lbl k" x="440" y="400" text-anchor="middle">media upload</text>
+            <path class="ln dash" d="M95 90 V24 H880 V84" marker-end="url(#ak)"/>
+            <text class="lbl k" x="480" y="20" text-anchor="middle">OTP via Firebase client SDK</text>
+
+            <!-- people -->
+            <rect class="box hot" x="20" y="90" width="150" height="90" rx="6"/>
+            <text class="t" x="34" y="124">Shoppers</text><text class="s" x="34" y="144">mobile web · desktop</text><text class="s" x="34" y="160">kimai.store</text>
+            <rect class="box" x="20" y="430" width="150" height="90" rx="6"/>
+            <text class="t" x="34" y="464">Owner</text><text class="s" x="34" y="484">catalog · stock</text><text class="s" x="34" y="500">orders · approvals</text>
+
+            <!-- cloudflare -->
+            <rect class="box" x="216" y="84" width="198" height="56" rx="5"/>
+            <text class="t" x="230" y="107">DNS · WAF · rate limits</text><text class="s" x="230" y="126">Turnstile bot check</text>
+            <rect class="box" x="216" y="152" width="198" height="56" rx="5"/>
+            <text class="t" x="230" y="175">Edge cache (CDN)</text><text class="s" x="230" y="194">HTML by tag · assets 1 yr</text>
+            <rect class="box hot" x="216" y="220" width="198" height="72" rx="5"/>
+            <text class="t" x="230" y="246">Next.js storefront</text><text class="s" x="230" y="265">Workers · SSR + ISR</text><text class="s" x="230" y="281">themed design system</text>
+            <rect class="box" x="216" y="304" width="198" height="56" rx="5"/>
+            <text class="t" x="230" y="327">R2 + Cloudflare Images</text><text class="s" x="230" y="346">media resized at the edge</text>
+            <rect class="box" x="216" y="430" width="198" height="90" rx="5"/>
+            <text class="t" x="230" y="460">Zero Trust Access</text><text class="s" x="230" y="480">owner-only gate for</text><text class="s" x="230" y="496">admin.kimai.store</text>
+
+            <!-- railway -->
+            <rect class="box hot" x="476" y="84" width="218" height="72" rx="5"/>
+            <text class="t" x="490" y="110">Medusa v2 API</text><text class="s" x="490" y="129">Store API + Admin API</text><text class="s" x="490" y="145">api.kimai.store</text>
+            <rect class="box" x="476" y="168" width="218" height="56" rx="5"/>
+            <text class="t" x="490" y="191">Background jobs</text><text class="s" x="490" y="210">same service at launch</text>
+            <rect class="box" x="476" y="236" width="218" height="50" rx="5"/>
+            <text class="t" x="490" y="257">PostgreSQL</text><text class="s" x="490" y="275">source of truth</text>
+            <rect class="box" x="476" y="298" width="218" height="50" rx="5"/>
+            <text class="t" x="490" y="319">Redis</text><text class="s" x="490" y="337">events · cache · locks</text>
+            <rect class="box" x="476" y="360" width="218" height="50" rx="5"/>
+            <text class="t" x="490" y="381">Product search</text><text class="s" x="490" y="399">Postgres full-text at launch</text>
+            <rect class="box hot" x="476" y="430" width="218" height="90" rx="5"/>
+            <text class="t" x="490" y="460">Admin console</text><text class="s" x="490" y="480">owner only · admin.kimai.store</text><text class="s" x="490" y="496">menus · stock · orders</text>
+            <rect class="box" x="476" y="540" width="218" height="50" rx="5"/>
+            <text class="t" x="490" y="561">Backups</text><text class="s" x="490" y="579">nightly pg_dump to R2</text>
+
+            <!-- external -->
+            <rect class="box" x="756" y="84" width="248" height="64" rx="5"/>
+            <text class="t" x="770" y="110">Firebase Auth</text><text class="s" x="770" y="130">phone OTP at checkout</text>
+            <rect class="box" x="756" y="168" width="248" height="64" rx="5"/>
+            <text class="t" x="770" y="194">PhonePe PG</text><text class="s" x="770" y="214">UPI · cards · netbanking</text>
+            <rect class="box" x="756" y="252" width="248" height="64" rx="5"/>
+            <text class="t" x="770" y="278">Delhivery</text><text class="s" x="770" y="298">pincode · AWB · COD · tracking</text>
+            <rect class="box" x="756" y="336" width="248" height="64" rx="5"/>
+            <text class="t" x="770" y="362">Resend</text><text class="s" x="770" y="382">order emails · GST invoices</text>
+            <rect class="box" x="756" y="430" width="248" height="64" rx="5"/>
+            <text class="t" x="770" y="456">Owner SMS alerts</text><text class="s" x="770" y="476">DLT SMS provider, e.g. MSG91</text>
+          </svg>
+        </div>
+        <p class="caption">To stay inside the $5–20/month Railway budget, launch runs three services: Medusa (API and background jobs together), Postgres and Redis. When traffic grows, the background jobs move to their own worker service and Meilisearch can be added, with no code changes.</p>
+      </section>
+
+      <!-- CATALOG -->
+      <section id="catalog">
+        <header>
+          <div class="eyebrow">Header menu as specified</div>
+          <h2>Catalog &amp; navigation</h2>
+          <p>Two separate things are managed in the admin. The <b>category tree</b> decides which products belong where and drives filters and URLs. The <b>header menu</b> decides what shoppers see. Keeping them separate lets Mangalagiri Sarees appear as its own top-level menu item while its products still show up under "All Sarees".</p>
+        </header>
+
+        <div class="mock" aria-label="Storefront header preview with the Sarees menu open">
+          <div class="zari thin" aria-hidden="true"></div>
+          <div class="mock-scroll"><div class="mock-inner">
+            <div class="mock-bar">
+              <div class="logo">KANCHARLA<small>TEXTILES · MANGALAGIRI</small></div>
+              <div class="mock-nav">
+                <span>Home</span><span>Mangalagiri Sarees</span><span class="on">Sarees</span><span>Kurtis</span><span>Lehengas</span><span>Nighties</span><span>Leggings</span>
+              </div>
+              <div class="mock-search">Search for sarees, kurtis and more</div>
+              <div class="mock-icons"><span><i></i>Profile</span><span><i class="heart"></i>Wishlist</span><span><i class="bag"></i>Bag</span></div>
+            </div>
+            <div class="mega">
+              <div><h4>Sarees</h4><ul><li>Gadwal Sarees</li><li>Benaras Sarees</li><li>Paithani Sarees</li><li>Pattu Sarees</li><li>Mysore Silk Sarees</li></ul></div>
+              <div><h4>&nbsp;</h4><ul><li>Kalamkari Sarees</li><li>Mushroom Silk Sarees</li><li>Georgette Sarees</li><li>Dola Sarees</li><li>Fancy Sarees</li></ul></div>
+              <div><h4>&nbsp;</h4><ul><li>Party Wear Sarees</li><li>Chinon Silk Sarees</li><li>Maheshwari Silk Sarees</li><li>Marshmallow Sarees</li><li style="color:var(--kumkum);font-weight:600">View all sarees →</li></ul></div>
+              <div class="promo"><b>The Gadwal Edit</b><span>Festive silks · image tile set in admin</span></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="caption">Header preview with the Sarees menu open. The order of entries, the columns and the promo tile are all edited in the admin menu builder.</p>
+
+        <div class="tree">
+          <ul>
+            <li><span class="n">Home</span><span class="u">/</span></li>
+            <li><span class="n">Mangalagiri Sarees</span><span class="u">/sarees/mangalagiri-sarees</span><span class="tag">menu shortcut</span></li>
+            <li><span class="n">Sarees</span><span class="u">/sarees</span>
+              <ul>
+                <li>Gadwal Sarees<span class="u">/sarees/gadwal-sarees</span></li>
+                <li>Benaras Sarees<span class="u">/sarees/benaras-sarees</span></li>
+                <li>Paithani Sarees<span class="u">/sarees/paithani-sarees</span></li>
+                <li>Pattu Sarees<span class="u">/sarees/pattu-sarees</span></li>
+                <li>Mysore Silk Sarees<span class="u">/sarees/mysore-silk-sarees</span></li>
+                <li>Kalamkari Sarees<span class="u">/sarees/kalamkari-sarees</span></li>
+                <li>Mushroom Silk Sarees<span class="u">/sarees/mushroom-silk-sarees</span></li>
+                <li>Georgette Sarees<span class="u">/sarees/georgette-sarees</span></li>
+                <li>Dola Sarees<span class="u">/sarees/dola-sarees</span></li>
+                <li>Fancy Sarees<span class="u">/sarees/fancy-sarees</span></li>
+                <li>Party Wear Sarees<span class="u">/sarees/party-wear-sarees</span></li>
+                <li>Chinon Silk Sarees<span class="u">/sarees/chinon-silk-sarees</span></li>
+                <li>Maheshwari Silk Sarees<span class="u">/sarees/maheshwari-silk-sarees</span></li>
+                <li>Marshmallow Sarees<span class="u">/sarees/marshmallow-sarees</span></li>
+                <li>Mangalagiri Sarees<span class="u">/sarees/mangalagiri-sarees</span><span class="tag">hidden in Sarees menu</span></li>
+              </ul>
+            </li>
+            <li><span class="n">Kurtis</span><span class="u">/kurtis</span>
+              <ul>
+                <li>Coord Sets<span class="u">/kurtis/coord-sets</span></li>
+                <li>3-Piece Sets<span class="u">/kurtis/3-piece-sets</span></li>
+                <li>Frocks<span class="u">/kurtis/frocks</span>
+                  <ul>
+                    <li>Georgette Frocks<span class="u">/kurtis/frocks/georgette-frocks</span></li>
+                    <li>Kalamkari Frocks<span class="u">/kurtis/frocks/kalamkari-frocks</span></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><span class="n">Lehengas</span><span class="u">/lehengas</span></li>
+            <li><span class="n">Nighties</span><span class="u">/nighties</span></li>
+            <li><span class="n">Leggings</span><span class="u">/leggings</span><span class="tag">Flagship line</span>
+              <ul>
+                <li>Ankle Leggings<span class="u">/leggings/ankle-leggings</span><span class="tag">migrated, 23 colours</span></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <ul class="list">
+          <li>Products can belong to more than one category, and the depth is unlimited, so a third level like Frocks → Georgette Frocks needs no code change.</li>
+          <li>Category attributes drive the filter rail. Sarees filter by fabric, weave, border, occasion and colour. Kurtis, Lehengas, Nighties and Leggings add size.</li>
+          <li><b>Sizes and size charts belong to the owner.</b> The default set is S, M, L, XL, XXL and XXXL. The owner can add or rename sizes and type in each category's size chart from the admin.</li>
+          <li>Leggings launch with Ankle Leggings only. Each colour is its own product, linked as swatches so shoppers can switch colour on the product page. The owner can add more leggings types later.</li>
+          <li>Lehengas are women's only. There is no Kids category.</li>
+          <li>Each category page has its own SEO title, description, banner image and an intro paragraph that the admin can edit.</li>
+          <li>Product pages live at <code>/p/{handle}</code> and SKUs follow <code>KM-{CAT}-{SUB}-{0000}</code>, for example <code>KM-SAR-GDW-0012</code>.</li>
+        </ul>
+      </section>
+
+      <!-- ADMIN -->
+      <section id="admin">
+        <header>
+          <div class="eyebrow">For the owner</div>
+          <h2>Admin console</h2>
+          <p>The admin console is Medusa Admin extended with custom store pages, served at <code>admin.kimai.store</code> behind Cloudflare Access. Whatever the owner saves here shows up on the storefront within seconds, with no developer involved.</p>
+        </header>
+        <div class="grid2">
+          <div class="card"><span class="k">Catalog</span><span class="v">Products &amp; categories</span><p>Drag-and-drop category tree, colour and size variants, MRP and sale price, stock, size charts and SEO fields.</p></div>
+          <div class="card"><span class="k">Custom extension</span><span class="v">Menu builder</span><p>Header and mobile menu with ordering, mega-menu columns, promo tile, "New" badges and show/hide per device.</p></div>
+          <div class="card"><span class="k">Custom extension</span><span class="v">Homepage</span><p>Hero banners, "Shop by category" tiles, product rails and testimonials, all edited by hand.</p></div>
+          <div class="card"><span class="k">Orders</span><span class="v">Fulfilment desk</span><p>Payment status, one-click Delhivery waybill, label and GST invoice PDFs, pickup requests, cancellation approvals and COD remittance tracking.</p></div>
+          <div class="card"><span class="k">Alerts</span><span class="v">New-order alerts</span><p>Every new order rings a bell in the admin console and sends an SMS to the owner's phone.</p></div>
+          <div class="card"><span class="k">Settings</span><span class="v">Store rules</span><p>Shipping charge (5% at launch), COD on/off, COD order cap and fee, excluded pincodes, GSTIN and invoice details.</p></div>
+        </div>
+        <p class="caption">Only the owner uses the admin, so there are no staff roles at launch. Sign-in is protected twice: by Cloudflare Access, then by the Medusa login. Coupons are built in but stay off at launch, and there are no custom reports. Medusa's standard order list and dashboard are enough.</p>
+        <h3>Inventory: from the admin to the shelf</h3>
+        <ul class="list">
+          <li><b>Adding stock:</b> the owner types in quantities per colour and size for the Mangalagiri store, which is the only stock location.</li>
+          <li><b>Product pages are always current:</b> stock and price are fetched live and never cached, so a size that's back in stock can be bought straight away.</li>
+          <li><b>Listing pages update automatically:</b> when an item sells out or comes back, the worker refreshes the cache for that product and its categories, so "Sold out" badges and "In stock" filters update within seconds.</li>
+          <li><b>Orders move stock by themselves:</b> stock is reserved when an order is placed, deducted when it ships, and returned when a cancellation is approved. Two shoppers cannot buy the last piece.</li>
+          <li><b>Low stock:</b> items below a threshold get a "Low stock" marker in the admin list. "Notify me when back in stock" comes after launch.</li>
+        </ul>
+        <h3>How a category change reaches the storefront</h3>
+<pre class="mermaid">
+sequenceDiagram
+  actor O as Owner
+  participant A as Admin console
+  participant M as Medusa API
+  participant W as Background jobs
+  participant S as Next.js storefront
+  participant C as Cloudflare cache
+  O->>A: Adds "Organza Sarees" under Sarees and places it in the menu
+  A->>M: POST /admin/product-categories, PUT /admin/menus/header
+  M->>M: Save to Postgres
+  M-->>W: Event: category created, menu updated
+  W->>S: POST /api/revalidate (signed) with tags nav and cat:sarees
+  S->>S: revalidateTag for menu and Sarees pages
+  W->>C: Purge cache tags nav and cat:sarees
+  Note over S,C: The next visitor gets the new menu, typically within 5 seconds
+  W->>W: Reindex search, rebuild sitemap
+</pre>
+      </section>
+
+      <!-- STOREFRONT -->
+      <section id="storefront">
+        <header>
+          <div class="eyebrow">For the shopper</div>
+          <h2>Storefront</h2>
+          <p>Every page that people browse is served from the edge cache. Only the bag, checkout and account pages talk to the API on each request.</p>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Page</th><th>What it does</th><th>Premium details</th></tr></thead>
+            <tbody>
+              <tr><td>Home</td><td>Hero slider, category tiles, new arrivals, tabbed Sarees/Kurtis/Lehengas rails, best sellers, reviews</td><td>The gopuram tiers rise on first load, and every section is built in the admin</td></tr>
+              <tr><td>Category (PLP)</td><td>Filter rail, sort, chips for applied filters, infinite load with a page-number fallback for SEO</td><td>The second photo shows on hover, colour swatches, % off in haldi, wishlist heart</td></tr>
+              <tr><td>Product (PDP)</td><td>Zoomable gallery and video, colour/size picker, size chart, fabric and care, pincode delivery date, similar items</td><td>A zari rule under the price, "Woven in Mangalagiri" provenance, and a sticky "Add to bag" on mobile</td></tr>
+              <tr><td>Search</td><td>Results while typing across product names, categories and fabrics</td><td>Recent searches remembered on the device</td></tr>
+              <tr><td>Bag</td><td>Slide-out drawer plus a full page. Works without login. Shows subtotal, shipping at 5% and the COD fee if chosen.</td><td>Clear price breakdown with MRP savings shown in haldi</td></tr>
+              <tr><td>Checkout</td><td>Phone OTP, then name, email and address, then PhonePe or COD</td><td>Single page with three collapsible steps, like Myntra</td></tr>
+              <tr><td>Account</td><td>Orders, live tracking, cancellation request, invoice download, reorder, saved addresses, wishlist</td><td>Order timeline styled like the stepped gopuram tiers</td></tr>
+              <tr><td>Content</td><td>About, the weavers' story, the Mangalagiri store, policies, contact. We write all the text.</td><td>WhatsApp button for help, a story page about the looms</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">Performance targets on a mid-range Android over 4G: LCP under 2.0 s, INP under 200 ms, CLS under 0.05. Product images are 4:5 and served as AVIF.</p>
+      </section>
+
+      <!-- AUTH -->
+      <section id="auth">
+        <header>
+          <div class="eyebrow">Phone OTP</div>
+          <h2>Customer login</h2>
+          <p>The site is open to everyone. Login is phone OTP only, and it's asked at the start of checkout, or when a shopper opens their account or wishlist. Firebase sends and checks the OTP. Medusa then swaps the Firebase token for its own session, so all customer data stays in our own Postgres.</p>
+        </header>
+<pre class="mermaid">
+sequenceDiagram
+  actor U as Shopper
+  participant B as Browser
+  participant F as Firebase Auth
+  participant M as Medusa API
+  participant D as Postgres
+  U->>B: Taps Place order, enters +91 mobile number
+  B->>F: signInWithPhoneNumber, with reCAPTCHA and App Check
+  F-->>U: SMS with 6-digit OTP
+  U->>B: Enters OTP
+  B->>F: confirm(code)
+  F-->>B: Firebase ID token
+  B->>M: POST /auth/customer/firebase with idToken
+  M->>F: verifyIdToken using the Admin SDK
+  M->>D: Find customer by phone or create one, then link the Firebase uid
+  M-->>B: httpOnly secure session cookie
+  Note over B,M: Guest bag moves into the account and checkout continues
+</pre>
+        <ul class="list">
+          <li>The Firebase step is built as a custom <b>Medusa auth provider</b>, so the rest of Medusa treats it like any other login method.</li>
+          <li><b>Blaze-plan safety:</b> restrict the SMS region policy to India (+91), enforce App Check, and use Cloudflare rate limits on the login route. This prevents SMS-pumping fraud from running up the bill.</li>
+          <li><b>Profile is three fields:</b> name, phone (verified by OTP) and email (for order mail and invoices). Nothing else is collected.</li>
+          <li><b>No marketing messages.</b> Customers receive order emails only, so there's no opt-in step.</li>
+          <li>This is a fresh store, so no customers are imported from WooCommerce.</li>
+        </ul>
+      </section>
+
+      <!-- CHECKOUT -->
+      <section id="checkout">
+        <header>
+          <div class="eyebrow">PhonePe + Delhivery</div>
+          <h2>Checkout &amp; payments</h2>
+          <p>Checkout has three steps: address, delivery and pay. The order is created only after the server has confirmed the payment with PhonePe. A customer who closes the tab after paying still gets the order.</p>
+        </header>
+<pre class="mermaid">
+sequenceDiagram
+  participant B as Browser
+  participant M as Medusa API
+  participant DL as Delhivery
+  participant P as PhonePe PG
+  participant W as Background jobs
+  B->>M: Address with pincode
+  M->>DL: Serviceability and delivery-date estimate
+  DL-->>M: Serviceable, ETA 4 to 6 days
+  B->>M: Pay now
+  M->>P: Create payment with order id equal to the cart id
+  P-->>M: Redirect URL
+  B->>P: Pays by UPI, card or netbanking
+  P->>M: Signed server-to-server callback
+  M->>P: Order status check, never trust the callback alone
+  M->>M: Complete cart, create order, reserve stock
+  P-->>B: Redirect to the order-confirmed page
+  W->>P: Every 5 min, check payments still pending
+</pre>
+        <ul class="list">
+          <li>Requests use idempotency keys, so a double tap or a retried callback cannot create two orders.</li>
+          <li><b>Shipping charge:</b> 5% of the order value, added as its own line. The percentage is set in the admin. There is no free-shipping threshold at launch, and India-wide delivery only.</li>
+          <li><b>GST invoice:</b> prices include GST. Each product carries an HSN code and tax rate. The invoice PDF prints the GSTIN and Kancharla Textiles' details, is emailed on shipping, and can be downloaded from the account.</li>
+          <li><b>Cancellations need the owner's approval.</b> The customer taps "Request cancellation" before the order ships, and the owner approves or declines in the admin. If approved, a prepaid order is refunded through PhonePe, and a COD order is cancelled with nothing to refund.</li>
+          <li><b>No returns or exchanges at launch</b>, as agreed. The policy page will say so clearly.</li>
+        </ul>
+        <h3>Cash on delivery</h3>
+        <p class="prose" style="color:var(--muted)">COD is included at launch. It's a separate payment provider in Medusa, so the owner can turn it off later from the admin without a code change or deploy.</p>
+        <ul class="list">
+          <li><b>The owner sets every COD rule in the admin:</b> on/off, maximum order value, COD fee (or none) and excluded pincodes. COD also shows only where Delhivery confirms the pincode accepts cash.</li>
+          <li><b>Verified phone:</b> the shopper proved their number by OTP at checkout, so there's no extra confirmation step. Repeat refusers can be blocked from COD in the admin.</li>
+          <li><b>Order flow:</b> a COD order skips PhonePe and goes straight to Confirmed. The waybill is created with the payment mode set to COD and the amount to collect.</li>
+          <li><b>Reconciliation:</b> Delhivery's COD remittance reports are matched to orders, and the order is marked paid when the cash is remitted. The admin shows which COD amounts are still outstanding.</li>
+          <li><b>Refused parcels:</b> COD parcels the customer refuses return to the store (RTO, return to origin), and the order is flagged in the admin.</li>
+        </ul>
+      </section>
+
+      <!-- TRACKING -->
+      <section id="tracking">
+        <header>
+          <div class="eyebrow">After the sale</div>
+          <h2>Order tracking</h2>
+          <p>The owner creates a Delhivery waybill from the admin in one click. Every courier scan after that updates the customer's timeline, and key steps send an email through Resend.</p>
+        </header>
+<pre class="mermaid">
+stateDiagram-v2
+  direction LR
+  [*] --> Placed
+  Placed --> Confirmed: paid online, or COD accepted
+  Confirmed --> Packed: waybill created
+  Packed --> Shipped: picked up by Delhivery
+  Shipped --> OutForDelivery
+  OutForDelivery --> Delivered
+  Shipped --> RTO: undeliverable
+  Confirmed --> CancelRequested: customer asks, before shipping
+  CancelRequested --> Cancelled: owner approves, refund if prepaid
+  CancelRequested --> Confirmed: owner declines
+</pre>
+        <ul class="list">
+          <li>Scans arrive by Delhivery push webhook where the account has it enabled. Otherwise the worker polls the tracking API every 30 minutes for active shipments.</li>
+          <li>Raw scans are saved as <code>shipment_event</code> rows and mapped to the six simple statuses customers see.</li>
+          <li>Customers can track from their account or from a public <code>/track</code> page using order number and phone, with an OTP for full details.</li>
+          <li>Emails go out on Placed, Shipped (with the invoice), Out for delivery, Delivered and Cancelled. The owner gets an SMS and an admin-console alert for every new order and every cancellation request.</li>
+        </ul>
+      </section>
+
+      <!-- DATA -->
+      <section id="data">
+        <header>
+          <div class="eyebrow">Postgres on Railway</div>
+          <h2>Data model</h2>
+          <p>Medusa's built-in modules cover most of the domain. We add five small custom modules for launch.</p>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Module</th><th>Key entities</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Product (built-in)</td><td>product, variant, option, category, collection, tag, image</td><td>Saree metadata: fabric, weave, border, length (m), blouse piece, occasion, wash care, HSN</td></tr>
+              <tr><td>Pricing (built-in)</td><td>price set, price list</td><td>MRP is the base price, sale prices live in a price list, and the % off is calculated</td></tr>
+              <tr><td>Inventory (built-in)</td><td>inventory item, stock location, reservation</td><td>One location: Kancharla Textiles, Mangalagiri</td></tr>
+              <tr><td>Customer (built-in)</td><td>customer, address, auth identity</td><td>Name, phone (unique) and email only. The Firebase uid is linked on the auth identity.</td></tr>
+              <tr><td>Order (built-in)</td><td>cart, order, payment, fulfillment, refund</td><td>Payment providers: PhonePe and COD. The Delhivery waybill and COD amount are stored on the fulfillment.</td></tr>
+              <tr><td>store_settings</td><td>shipping_rule, cod_rule, invoice_profile, cancel_request</td><td>Shipping at 5%, the COD cap, fee and pincodes, GSTIN, and cancellation requests waiting for the owner</td></tr>
+              <tr><td>navigation</td><td>menu, menu_item</td><td>Points to a category, collection or URL. Has rank, parent, image, badge and per-device visibility.</td></tr>
+              <tr><td>storefront_content</td><td>home_section, banner, testimonial</td><td>Edited by hand. Changes trigger revalidation.</td></tr>
+              <tr><td>wishlist</td><td>wishlist, wishlist_item</td><td>Tapping the heart asks for OTP login first</td></tr>
+              <tr><td>shipment_tracking</td><td>shipment_event</td><td>Raw Delhivery scans mapped to customer statuses</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CACHING -->
+      <section id="caching">
+        <header>
+          <div class="eyebrow">Cloudflare</div>
+          <h2>Caching &amp; CDN</h2>
+          <p>Pages are cached until an admin change makes them out of date, and not for a fixed time. Each page carries cache tags, and the worker purges exactly the tags a change affects.</p>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What</th><th>Where</th><th>Lifetime</th><th>Cleared by</th></tr></thead>
+            <tbody>
+              <tr><td>JS, CSS, fonts</td><td>Cloudflare CDN</td><td>1 year, immutable</td><td>New file hashes on each deploy</td></tr>
+              <tr><td>Product images</td><td>R2 + Images</td><td>1 year</td><td>A new upload gets a new URL</td></tr>
+              <tr><td>Home, category, product pages</td><td>Edge cache + Next.js cache</td><td>Until changed, served stale while refreshing</td><td>Tags <code>nav</code>, <code>home</code>, <code>cat:{handle}</code>, <code>prod:{id}</code></td></tr>
+              <tr><td>Stock and price on product pages</td><td>Fetched live by the browser</td><td>Never cached</td><td>n/a</td></tr>
+              <tr><td>Bag, checkout, account</td><td>Not cached</td><td>n/a</td><td>n/a</td></tr>
+              <tr><td>Store API reads</td><td>Redis</td><td>60 s</td><td>Medusa events</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECURITY -->
+      <section id="security">
+        <header>
+          <div class="eyebrow">Trust</div>
+          <h2>Security &amp; compliance</h2>
+        </header>
+        <ul class="list">
+          <li><b>Card data never touches our servers.</b> Card entry happens on PhonePe's hosted checkout, which keeps PCI scope minimal.</li>
+          <li><b>The admin is invisible to the public.</b> It sits behind Cloudflare Access, so the owner confirms an email code before Medusa's own login screen even loads.</li>
+          <li><b>Bot protection:</b> WAF managed rules, Turnstile on checkout, and rate limits on OTP and tracking routes.</li>
+          <li><b>Data protection:</b> only name, phone, email and address are collected. There's no analytics tracking at launch, account deletion on request, and a privacy policy written for India's DPDP Act.</li>
+          <li><b>Secrets:</b> stored as Railway and Cloudflare environment variables, never in the repo. Webhook signatures are checked on every callback.</li>
+          <li><b>Backups:</b> Railway volume backups plus a nightly <code>pg_dump</code> to R2, kept for 30 days. Restores are tested every quarter.</li>
+          <li><b>Monitoring:</b> Sentry's free tier for storefront and API errors, plus an uptime check on checkout.</li>
+        </ul>
+      </section>
+
+      <!-- DEVOPS -->
+      <section id="devops">
+        <header>
+          <div class="eyebrow">How it ships</div>
+          <h2>Repo &amp; deployment</h2>
+          <p>One monorepo with separate staging and production environments. A merge to <code>main</code> deploys to production.</p>
+        </header>
+<pre class="code">kancharla-textiles/
+├─ apps/
+│  ├─ storefront/        Next.js · deployed to Cloudflare Workers (OpenNext)
+│  └─ backend/           Medusa v2 · one Railway service (API + jobs)
+│     └─ src/
+│        ├─ modules/     navigation, storefront-content, wishlist, store-settings, shipment-tracking
+│        ├─ providers/   auth-firebase, payment-phonepe, payment-cod, fulfillment-delhivery,
+│        │               notification-resend, notification-sms
+│        ├─ subscribers/ revalidate + purge, order emails, owner alerts
+│        ├─ jobs/        payment reconcile, tracking poll, sitemap
+│        └─ admin/       menu builder, homepage, store rules, cancellation approvals
+├─ packages/
+│  ├─ ui/                Mangalagiri design tokens + components
+│  └─ config/            eslint, tsconfig, tailwind preset
+└─ .github/workflows/    typecheck · test · deploy</pre>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Domain</th><th>Serves</th><th>Hosted on</th></tr></thead>
+            <tbody>
+              <tr><td>kimai.store</td><td>Storefront</td><td>Cloudflare Workers</td></tr>
+              <tr><td>api.kimai.store</td><td>Medusa Store + Admin API</td><td>Railway (proxied through Cloudflare)</td></tr>
+              <tr><td>admin.kimai.store</td><td>Admin console</td><td>Railway, behind Cloudflare Access</td></tr>
+              <tr><td>media.kimai.store</td><td>Product photos and video</td><td>R2 + Cloudflare Images</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">There is no paid staging environment, to stay in budget. The storefront is tested on Cloudflare preview URLs, and payments in PhonePe's sandbox, before go-live.</p>
+        <h3>Monthly running costs (all billed to the owner)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Service</th><th>Cost</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Cloudflare</td><td>~$5 / month</td><td>Workers Paid plan. R2 storage is pay-per-GB with free egress.</td></tr>
+              <tr><td>Railway</td><td>~$5–20 / month</td><td>Medusa, Postgres and Redis at launch traffic. We'll check usage in week one.</td></tr>
+              <tr><td>Firebase</td><td>Per OTP SMS</td><td>Blaze plan. Limited to +91 numbers to prevent SMS fraud.</td></tr>
+              <tr><td>Resend</td><td>Free tier to start</td><td>Order emails. The free tier has a daily cap, and the paid plan is needed once orders grow.</td></tr>
+              <tr><td>Owner SMS</td><td>Paise per SMS</td><td>DLT-registered provider, e.g. MSG91. See open point 4.</td></tr>
+              <tr><td>PhonePe, Delhivery</td><td>Per transaction / shipment</td><td>As per the owner's merchant and courier contracts</td></tr>
+              <tr><td>Domain</td><td>Yearly</td><td>kimai.store renewal at the current registrar</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ROADMAP -->
+      <section id="roadmap">
+        <header>
+          <div class="eyebrow">Hard deadline · before 10 Oct 2026</div>
+          <h2>Launch plan</h2>
+          <p>The site must be live before 10 October, ahead of the Dasara season (Vijayadashami is 20 Oct). That leaves 7 days, so launch is a strict cut: everything a customer needs to browse, buy and track is in, and extras follow in the week after. The plan assumes at least two developers working full days, including the weekend.</p>
+        </header>
+        <div class="callout"><b>The owner must start these today, 2 Oct.</b> They depend on outside approvals, not on us. PhonePe merchant activation and KYC, a Delhivery business account with API access and COD enabled, DLT registration for the owner-alert SMS, and domain registrar access. If one isn't ready by launch day, the fallback below applies, so the deadline doesn't slip.</div>
+        <div class="phases">
+          <div class="phase"><span class="when">Fri 2 Oct</span><h3>Foundations</h3><p>Owner opens all accounts. Team sets up the repo, Medusa on Railway and Next.js on Cloudflare, wired together and deployed on day one. Mangalagiri design tokens and core components.</p></div>
+          <div class="phase"><span class="when">Sat 3 Oct</span><h3>Catalog and admin structure</h3><p>Full category tree, menu builder, size options and size charts, homepage sections, store rules (shipping 5%, COD settings, GSTIN).</p></div>
+          <div class="phase"><span class="when">Sun 4 Oct</span><h3>Storefront</h3><p>Header with mega menu, home, category pages with filters, product page, search. Logo needed from the owner today.</p></div>
+          <div class="phase"><span class="when">Mon 5 Oct</span><h3>Bag and checkout</h3><p>Guest bag, Firebase OTP at checkout, address and pincode check, shipping charge, cash on delivery.</p></div>
+          <div class="phase"><span class="when">Tue 6 Oct</span><h3>Payments and messages</h3><p>PhonePe in the sandbox, order emails through Resend, GST invoice PDF, owner SMS and admin alerts for new orders.</p></div>
+          <div class="phase"><span class="when">Wed 7 Oct</span><h3>Accounts and shipping</h3><p>My orders, tracking timeline, cancellation requests with owner approval, invoice download, reorder, addresses, wishlist. Delhivery waybill and tracking.</p></div>
+          <div class="phase"><span class="when">Thu 8 Oct</span><h3>Products in, testing</h3><p>Owner adds products, photos and stock, while we write the About, store and policy pages. Full test on Android and iPhone: real OTP, a ₹1 PhonePe payment, a COD order, a cancellation.</p></div>
+          <div class="phase"><span class="when">Fri 9 Oct</span><h3>Go live</h3><p>PhonePe production keys, DNS switch to the new site, 301 redirects from old URLs. Sat 10 Oct is kept as a buffer day.</p></div>
+          <div class="phase"><span class="when">12–31 Oct</span><h3>After launch</h3><p>Customer reviews, back-in-stock alerts, scheduled festival themes, Meilisearch, splitting out the background worker, and coupons if the owner wants them later.</p></div>
+        </div>
+        <h3>Fallbacks if an approval is late</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>If this isn't ready</th><th>We launch with</th><th>Then</th></tr></thead>
+            <tbody>
+              <tr><td>PhonePe activation</td><td>Cash on delivery only</td><td>Turn on online payment from the admin the day PhonePe approves</td></tr>
+              <tr><td>Delhivery API access</td><td>Owner books parcels in Delhivery's own panel and pastes the AWB into the order</td><td>Switch to one-click waybills when the API token arrives. Customer tracking works either way.</td></tr>
+              <tr><td>DLT SMS registration</td><td>New-order alerts in the admin console plus an email to the owner</td><td>Add the SMS alert when DLT is approved</td></tr>
+              <tr><td>Product photos</td><td>Launch with the categories that have photos ready</td><td>The owner adds the rest from the admin with no deploy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- QUESTIONS -->
+      <section id="questions">
+        <header>
+          <div class="eyebrow">Confirmed 2 Oct 2026</div>
+          <h2>Client requirements</h2>
+          <p>The client's answers, as agreed, and the four points that still need a one-line answer.</p>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Topic</th><th>Decision</th></tr></thead>
+            <tbody>
+              <tr><td>Login</td><td>Phone OTP only, asked at checkout. Browsing is open to everyone.</td></tr>
+              <tr><td>Profile</td><td>Name, phone and email only. No marketing opt-ins. No WooCommerce customer import.</td></tr>
+              <tr><td>Account</td><td>Track, cancel (on approval), download invoices, reorder, saved addresses, wishlist</td></tr>
+              <tr><td>Leggings</td><td>Ankle Leggings only. The owner adds more types later.</td></tr>
+              <tr><td>Lehengas</td><td>Women only</td></tr>
+              <tr><td>Products</td><td>Based on the client's inventory. The owner enters products and stock by hand.</td></tr>
+              <tr><td>Sizes</td><td>S, M, L, XL, XXL, XXXL. Fully editable by the owner, with size charts entered manually.</td></tr>
+              <tr><td>Pricing</td><td>MRP plus sale price. No coupons at launch.</td></tr>
+              <tr><td>Shipping</td><td>From Kancharla Textiles, Mangalagiri only. India-wide. Shipping charge 5%.</td></tr>
+              <tr><td>COD</td><td>On at launch. The owner sets the cap, fee and excluded pincodes.</td></tr>
+              <tr><td>Invoices</td><td>GST invoice with GSTIN printed</td></tr>
+              <tr><td>Admin</td><td>Owner only. New-order alerts in the console and by SMS. No reports.</td></tr>
+              <tr><td>Language</td><td>English only</td></tr>
+              <tr><td>Content</td><td>We write the About, store and policy pages. The owner supplies the vector logo.</td></tr>
+              <tr><td>Email</td><td>Resend</td></tr>
+              <tr><td>Launch</td><td>Live before 10 Oct 2026, ahead of Dasara</td></tr>
+              <tr><td>Dropped</td><td>Returns and exchanges, photoshoot plan, Telugu toggle, WordPress access, Google Analytics and Meta</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Still open</h3>
+        <ol class="qs">
+          <li><b>Shipping at 5%: of the order value, on every order?</b><span>We've assumed yes, with no free-shipping threshold. Should there be a minimum (e.g. ₹50) or a maximum charge?</span></li>
+          <li><b>No returns or exchanges at all?</b><span>The answer was to remove the return question. We've taken that as no returns or exchanges, and the account page shows none. Should damaged-in-transit parcels be handled case by case on WhatsApp?</span></li>
+          <li><b>Cancellation approval:</b><span>We've built it so the customer requests a cancellation and the owner approves or declines in the admin. Is that what "needs owner's approval" meant?</span></li>
+          <li><b>Owner SMS can't go through Firebase.</b><span>Firebase only sends login OTPs. It can't send other messages. The new-order SMS needs a DLT-registered SMS provider such as MSG91, which the owner registers in their own name, and approval can take a few days. Until then, alerts go to the admin console and the owner's email. Is that OK?</span></li>
+        </ol>
+
+        <h3>Accounts &amp; access from the owner</h3>
+        <p class="prose" style="color:var(--muted)">Every account is in the owner's name and billed to the owner, with the team invited as members. Passwords should not be shared over WhatsApp or email. Items marked "today" decide whether the 9 Oct launch holds.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Service</th><th>What we need</th><th>By</th></tr></thead>
+            <tbody>
+              <tr><td>PhonePe PG</td><td>Merchant onboarding and KYC started, then sandbox and production keys</td><td>Today</td></tr>
+              <tr><td>Delhivery</td><td>Business account, API token, Mangalagiri pickup address registered, COD enabled</td><td>Today</td></tr>
+              <tr><td>SMS provider (DLT)</td><td>Owner registers sender ID and the new-order template, e.g. on MSG91</td><td>Today</td></tr>
+              <tr><td>Domain registrar</td><td>Access for kimai.store, so nameservers can point to Cloudflare</td><td>Today</td></tr>
+              <tr><td>Cloudflare</td><td>Owner account on Workers Paid ($5), team invited as Administrator</td><td>Today</td></tr>
+              <tr><td>Railway</td><td>Owner workspace with a billing card, team invited</td><td>Today</td></tr>
+              <tr><td>Firebase</td><td>Existing Blaze project, team added as Editor</td><td>Today</td></tr>
+              <tr><td>Resend</td><td>Account in the owner's name. We add its DNS records on Cloudflare.</td><td>Sat 3 Oct</td></tr>
+              <tr><td>Logo</td><td>Vector file (SVG, AI or PDF)</td><td>Sun 4 Oct</td></tr>
+              <tr><td>GST details</td><td>GSTIN, registered name and address, HSN codes and GST rates per category</td><td>Mon 5 Oct</td></tr>
+              <tr><td>Products</td><td>Photos, prices, sizes and stock, entered by the owner in the admin</td><td>Thu 8 Oct</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="zari" aria-hidden="true"></div>
+<div class="wrap"><footer class="end">Kancharla Textiles Platform Blueprint · v1.3 · Prepared 2 Oct 2026, renamed 3 Oct 2026. Site audit based on kimai.store and mounirajashekarcollections.com as they were on that date.</footer></div>
